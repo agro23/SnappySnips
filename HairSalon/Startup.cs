@@ -45,6 +45,6 @@ namespace HairSalon
     {
         // public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=Andy_Grossberg;";
         // NOTE: Users will want to change the settings below to match the settings for their machines. Use the above line as a DEFAULT 
-        public static string ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=to_do;Allow User Variables=True";
+        public static string ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg;Allow User Variables=True";
     }
 }

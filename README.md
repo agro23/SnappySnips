@@ -41,13 +41,26 @@ For reference, here are the previous weeks' objectives:
     Code and Git documentation follows best practices (descriptive variables names, proper indentation and spacing, separation between front and back-end logic, detailed commit messages in the correct tense, and a well-formatted README).
 
 ## Specifications
+* Test initial files
+EXPECTED INPUT: None.
+EXPECTED OUTPUT: Tests should fail because database does not exist yet.
 
-* Create hair_salon database with MyPHPAdmin
+* Create Hair Salon database (called andy_grossberg for project) with MyPHPAdmin
+
 * Create table for stylists
-* Test connection to database
-* Create hair_salon_test database with MyPHPAdmin
 * Create table for stylists
+
 * Test connection to database
+
+* Copy Hair Salon Test database (called andy_grossberg for project) with MyPHPAdmin
+
+* Test connection to database
+EXPECTED INPUT: None.
+EXPECTED OUTPUT: Test should pass, index.cshtml template should show.
+
+* Test equals override in test model. <--
+EXPECTED INPUT: None.
+EXPECTED OUTPUT: Tests should pass.
 
 * Add GetAll() to stylists
   - Test
@@ -85,10 +98,10 @@ This project was similar in structure and scope to the To Do List project. So, I
 * Go in to HairSalon.Tests -> ModelsTests -> HairSalonModelTest.cs and change the ConnectionString in DBConfiguration to reflect your correct userID, password, and port as needed.
   - (this will probabaly be "server=localhost;user id=root;password=root;port=8889;database=to_do_test;")
 * Download the database OR use MySQL to:
-  - >CREATE DATABASE Andy_Grossberg;
-  - >USE Andy_Grossberg;
-  - >CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255));
-  - >CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), client_id INT);
+  `>`CREATE DATABASE Andy_Grossberg;
+  `>`USE Andy_Grossberg;
+  `>`CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255));
+  `>`CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), client_id INT);
     * THEN Follow these same instructions to create the test databse Andy_Grossberg_Test
 * Inside HairSalon.Tests, run the command 'dotnet test' from the command line
 * Run the command 'dotnet restore' to download the necessary packages.

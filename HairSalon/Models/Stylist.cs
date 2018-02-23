@@ -2,17 +2,38 @@ using System;
 
 namespace HairSalon.Models
 {
-  public class HairSalonModel
+  public class Stylist
   {
 
     private int _id;
     private string _name;
 
-    public HairSalonModel(string name, int id = 0)
+    public Stylist(string name, int id = 0)
     {
       _name = name;
       _id = id;
     }
+
+    public override bool Equals(System.Object otherStylist)
+    {
+      if (!(otherStylist is Stylist))
+      {
+        return false;
+      }
+      else
+      {
+      Stylist newStylist = (Stylist) otherStylist;
+      bool idEquality = (this.GetId() == newStylist.GetId());
+      bool nameEquality = (this.GetName() == newStylist.GetName());
+      return (idEquality && nameEquality);
+      }
+    }
+
+    public override int GetHashCode()
+    {
+      return this.GetName().GetHashCode();
+    }
+
 
     public int GetId()
     {
