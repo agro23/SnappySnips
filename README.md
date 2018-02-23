@@ -58,12 +58,16 @@ EXPECTED OUTPUT: Tests should fail because database does not exist yet.
 EXPECTED INPUT: None.
 EXPECTED OUTPUT: Test should pass, index.cshtml template should show.
 
-* Test equals override in test model. <--
-EXPECTED INPUT: None.
-EXPECTED OUTPUT: Tests should pass.
+* Test equals override in Stylist model by creating two Stylist objects and comparing them.
+EXPECTED INPUT (From StylistTests.cs): "Jabba the Hutt", "Jabba the Hutt".
+EXPECTED OUTPUT: None.
+  - Test should pass
 
-* Add GetAll() to stylists
+* Add GetAll() to Stylist <--
   - Test
+  EXPECTED INPUT (From StylistTests.cs):
+  EXPECTED OUTPUT
+
 * Add Save() to stylists
   - Test* Add DeleteAll for stylists
 * Add Edit function
@@ -100,8 +104,8 @@ This project was similar in structure and scope to the To Do List project. So, I
 * Download the database OR use MySQL to:
   `>`CREATE DATABASE Andy_Grossberg;
   `>`USE Andy_Grossberg;
-  `>`CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255));
-  `>`CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255), client_id INT);
+  `>`CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylist_id INT);
+  `>`CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
     * THEN Follow these same instructions to create the test databse Andy_Grossberg_Test
 * Inside HairSalon.Tests, run the command 'dotnet test' from the command line
 * Run the command 'dotnet restore' to download the necessary packages.
