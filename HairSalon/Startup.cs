@@ -36,7 +36,7 @@ namespace HairSalon
             app.UseDeveloperExceptionPage();
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Something went horribly wrong :0");
+                await context.Response.WriteAsync("There is no such page or process!");
             });
         }
     }
@@ -44,7 +44,7 @@ namespace HairSalon
     public static class DBConfiguration
     {
         // public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=Andy_Grossberg;";
-        // NOTE: Users will want to change the settings below to match the settings for their machines. Use the above line as a DEFAULT 
+        // NOTE: Users will want to change the settings below to match the settings for their machines. Use the above line as a DEFAULT
         public static string ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg;Allow User Variables=True";
     }
 }

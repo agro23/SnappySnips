@@ -57,22 +57,43 @@ namespace HairSalon.Models.Tests
     }
 
     [TestMethod]
+    public void Save_SavesToDatabase_ItemList()
+    {
+      //Arrange
+      Stylist testStylist = new Stylist("Kermit the Frog");
+
+      //Act
+      testStylist.Save();
+      List<Stylist> result = Stylist.GetAll();
+      List<Stylist> tempList = new List<Stylist>{testStylist};
+
+      //Assert
+      CollectionAssert.AreEqual(tempList, result);
+      Assert.AreEqual(1, Stylist.GetAll().Count);
+    }
+
+
+    [TestMethod]
     public void GetClients_RetrievesAllClientssWithStylist_ClientList()
     {
+      //Arrange
       Stylist testStylist = new Stylist("Boba Fett");
       testStylist.Save();
 
+      //Act
       Client firstClient = new Client("Frozen Han", testStylist.GetId());
       firstClient.Save();
       Client secondClient = new Client("Leia's Grenade", testStylist.GetId());
       secondClient.Save();
-
-
+      // Add to the clients table some new clients
       List<Client> testClientList = new List<Client> {firstClient, secondClient};
       List<Client> resultClientList = testStylist.GetClients();
 
+      //Assert
       CollectionAssert.AreEqual(testClientList, resultClientList);
     }
+
+
 
   }
 }

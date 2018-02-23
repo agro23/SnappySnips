@@ -8,9 +8,12 @@ body {
   background: linear-gradient(silver, white);
 }
 
+h4{
+  margin-left: 1em;
+}
+
 .well {
   background: linear-gradient(gray, white);
-  margin: 1em;
 }
 
 .row {

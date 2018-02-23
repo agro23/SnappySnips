@@ -54,7 +54,7 @@ EXPECTED OUTPUT: Tests should fail because database does not exist yet.
 
 * Copy Hair Salon Test database (called andy_grossberg for project) with MyPHPAdmin
 
-* Test connection to database
+* Test connection  to database
 EXPECTED INPUT: None.
 EXPECTED OUTPUT: Test should pass, index.cshtml template should show.
 
@@ -63,14 +63,28 @@ EXPECTED INPUT (From StylistTests.cs): "Jabba the Hutt", "Jabba the Hutt".
 EXPECTED OUTPUT: None.
   - Test should pass
 
-* Add GetAll() to Stylist <--
-  - Test
-  EXPECTED INPUT (From StylistTests.cs):
-  EXPECTED OUTPUT
+* Add Save() to stylists <--
+EXPECTED INPUT (From StylistTests.cs): "Kermit the Frog".
+  - Data is written to the db and to a list and they are compared.
+EXPECTED OUTPUT: None.
+  - Test should pass
 
-* Add Save() to stylists
-  - Test* Add DeleteAll for stylists
-* Add Edit function
+* Add GetAll() to Stylist.cs
+  - Test for nothing in db
+EXPECTED INPUT (From StylistTests.cs): GetAll().Count at 0
+EXPECTED OUTPUT: None. But test should pass if the db is empty.
+
+* Add GetClients() to Stylist.cs
+EXPECTED INPUT (From StylistTests.cs):
+  - two different clients added to a list and the clients db, then retrieved and compared.
+EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
+
+* Create View to see stylists
+* Enable Save() for stylists
+
+* Add DeleteAll for stylists
+
+* Add Edit function <-- 
   - Test
 * Add Delete for individual stylists
   - Test

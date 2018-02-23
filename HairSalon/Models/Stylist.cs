@@ -111,28 +111,41 @@ namespace HairSalon.Models
 
     public static void DeleteAll()
     {
-        // MySqlConnection conn = DB.Connection();
-        // conn.Open();
-        //
-        // var cmd = conn.CreateCommand() as MySqlCommand;
-        // cmd.CommandText = @"DELETE FROM categories; ALTER TABLE categories AUTO_INCREMENT = 1;";
-        // try
-        // {
-        //   cmd.ExecuteNonQuery();
-        // }
-        // catch (Exception ex)
-        // {
-        //   Console.WriteLine("Exception in DeleteAll");
-        // }
-        //
-        // conn.Close();
-        // if (conn != null)
-        //   conn.Dispose();
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM stylists; ALTER TABLE stylists AUTO_INCREMENT = 1;";
+        try
+        {
+          cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+          Console.WriteLine("Exception in DeleteAll: " + ex);
+        }
+
+        conn.Close();
+        if (conn != null)
+          conn.Dispose();
     }
 
     public void Save()
     {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
 
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@Name);";
+
+      cmd.Parameters.Add(new MySqlParameter("@Name", _name));
+
+      cmd.ExecuteNonQuery();
+      _id = (int)cmd.LastInsertedId;
+
+      conn.Close();
+      if (conn != null)
+        conn.Dispose();
     }
 
   }
