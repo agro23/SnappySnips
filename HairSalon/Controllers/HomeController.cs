@@ -37,6 +37,46 @@ namespace HairSalon.Controllers
       // return View();
     }
 
+    [HttpGet("/stylists/{id}")]
+    public ActionResult Details(int id)
+    {
+      Console.WriteLine("I'm in Find()");
+        Stylist newStylist = Stylist.Find(id);
+        return View(newStylist);
+    }
+
+    [HttpGet("/stylists/{id}/update")]
+    public ActionResult UpdateForm(int id)
+    {
+      Console.WriteLine("I'm in Update() and ID is " + id);
+        Stylist newStylist = Stylist.Find(id);
+        return View("Update", newStylist);
+        // return View();
+    }
+
+    [HttpPost("/stylists/{id}/update")]
+    public ActionResult Update(int id)
+    {
+        Stylist thisStylist = Stylist.Find(id);
+        thisStylist.Edit(Request.Form["new-name"]);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet("/stylists/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+        // Console.WriteLine("Inside the Get for Delete I have ID: " + id);
+        // // Stylist thisStylist = Stylist.Find(id);
+        // // Stylist.Delete(thisStylist.GetId());
+        // Console.WriteLine("Let's make ID into " + Stylist.Find(id).GetId() );
+        // Console.WriteLine("Nevermind. Let's just go with " + id );
+        //
+        // // Stylist.Delete(Stylist.Find(id).GetId());
+        Stylist.Delete(id);
+
+        return RedirectToAction("Index");
+    }
+
     [HttpGet("/deleteAll")]
     public ActionResult DeleteAll()
     {

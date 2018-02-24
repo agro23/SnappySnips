@@ -1,0 +1,12 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  <h2>Delete Stylist: @Model.GetName()</h2>
+  <form action="/stylists/@Model.GetId()/delete" method="post">
+      <label for="name">Name:</label>
+      <input type="text" name="new-name" id="new-name" value="@Model.GetName()">
+      <button type="submit">Delete</button>
+  </form>
+  <h4><a href="/stylists">Return home</a></h4>
+</div>

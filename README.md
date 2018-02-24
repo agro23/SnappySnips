@@ -48,7 +48,7 @@ EXPECTED OUTPUT: Tests should fail because database does not exist yet.
 * Create Hair Salon database (called andy_grossberg for project) with MyPHPAdmin
 
 * Create table for stylists
-* Create table for stylists
+* Create table for clients
 
 * Test connection to database
 
@@ -80,11 +80,10 @@ EXPECTED INPUT (From StylistTests.cs):
 EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
 
 * Create View to see stylists
-* Enable Save() for stylists
 
 * Add DeleteAll for stylists
 
-* Add Edit function <-- 
+* Add Edit function <--
   - Test
 * Add Delete for individual stylists
   - Test

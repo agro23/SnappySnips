@@ -93,7 +93,56 @@ namespace HairSalon.Models.Tests
       CollectionAssert.AreEqual(testClientList, resultClientList);
     }
 
+    [TestMethod]
+    public void Find_FindsItemInDatabase_Item()
+    {
+    //Arrange
+    Stylist testStylist = new Stylist("Mr. Potatohead");
+    testStylist.Save();
 
+    //Act
+    Stylist foundStylist = Stylist.Find(testStylist.GetId());
+
+    //Assert
+    Assert.AreEqual(testStylist, foundStylist);
+    Assert.AreEqual(testStylist.GetId(), foundStylist.GetId());
+    Assert.AreEqual(testStylist.GetName(), foundStylist.GetName());
+    }
+
+    [TestMethod]
+    public void Delete_StylistFromDatabase_Void()
+    {
+      //Arrange
+      List<Stylist> testList = new List<Stylist>();
+      Stylist testStylist;
+
+      testStylist = new Stylist("Buffy the Vampire Slayer");
+      testStylist.Save();
+      testList.Add(testStylist);
+
+      testStylist = new Stylist("Terminator T-1000");
+      testStylist.Save();
+      testList.Add(testStylist);
+
+      testStylist = new Stylist("Fred Flintstone");
+      testStylist.Save();
+      testList.Add(testStylist);
+
+      testStylist = new Stylist("Terminator T-800");
+      testStylist.Save();
+      testList.Add(testStylist);
+
+      testStylist = new Stylist("George Jetson");
+      testStylist.Save();
+      testList.Add(testStylist);
+
+      //Act
+      Stylist.Delete(3); // Why is Stylist ahead by one? Do I reindex somewhere?!
+      testList.RemoveAt(2);
+
+      //Assert
+      CollectionAssert.AreEqual(testList, Stylist.GetAll());
+    }
 
   }
 }
