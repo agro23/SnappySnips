@@ -49,17 +49,39 @@ namespace HairSalon.Controllers
     public ActionResult UpdateForm(int id)
     {
       Console.WriteLine("I'm in Update() and ID is " + id);
-        Stylist newStylist = Stylist.Find(id);
-        return View("Update", newStylist);
-        // return View();
+        // Stylist newStylist = Stylist.Find(id);
+        // return View("Update", newStylist);
+        return View("Update", Stylist.Find(id));
     }
+
+    // [HttpPost("/stylists/{name}/{id}/update")]
+    // public ActionResult UpdateFormIsh(string name, int id)
+    // {
+    //   Console.WriteLine("I'm in UpdateFormIsh() and Name is " + name);
+    //     // Stylist newStylist = Stylist.Find(id);
+    //     // return View("Update", newStylist);
+    //     // return View("Update", Stylist.Find(id));
+    //
+    //     string tempX = Request.Form["new-name"];
+    //         Console.WriteLine("id is " + id + " and the form sent " + tempX + " so...");
+    //         Stylist thisStylist = Stylist.Find(id);
+    //     //     Console.WriteLine("Edit should do its trick.");
+    //         thisStylist.Edit(Request.Form["new-name"], id);
+    //         return RedirectToAction("Index", thisStylist);
+    //
+    //     //
+    //     // return View("Index");
+    // }
 
     [HttpPost("/stylists/{id}/update")]
     public ActionResult Update(int id)
     {
+        string tempX = Request.Form["new-name"];
+        Console.WriteLine("id is " + id + " and the form sent " + tempX + " so...");
         Stylist thisStylist = Stylist.Find(id);
-        thisStylist.Edit(Request.Form["new-name"]);
-        return RedirectToAction("Index");
+        Console.WriteLine("Edit should do its trick.");
+        thisStylist.Edit(Request.Form["new-name"], id);
+        return RedirectToAction("Index", thisStylist);
     }
 
     [HttpGet("/stylists/{id}/delete")]

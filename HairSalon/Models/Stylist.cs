@@ -42,6 +42,11 @@ namespace HairSalon.Models
       return _id;
     }
 
+    public void SetId(int myId)
+    {
+      _id = myId;
+    }
+
     public string GetName()
     {
       return _name;
@@ -169,7 +174,7 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
         Console.WriteLine("I'm looking for record: " + id);
 
         Console.WriteLine("Got this far in Find!");
-        int stylistId = 0;
+        int stylistId = id; // try THAT instead of 0!
         string stylistName = "";
 
         try
@@ -178,7 +183,9 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
           while (rdr.Read())
           {
              stylistId = rdr.GetInt32(0);
+             Console.WriteLine("And I got from the db: " + stylistId);
              stylistName = rdr.GetString(1);
+             Console.WriteLine("And I got from the db: " + stylistName);
           }
         }
         catch (Exception ex)
@@ -189,17 +196,23 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
         Console.WriteLine("stylistName = " + stylistName);
         Console.WriteLine("stylistId = " + stylistId);
         Stylist foundStylist= new Stylist(stylistName);
+        // List<Stylist> tempStylists = Stylist.GetAll();
+        // Stylist foundStylist = tempStylists[stylistId];
+        // Stylist foundStylist = Stylist.GetAll()[???];
+          Console.WriteLine("foundStylist is " + foundStylist.GetName());
+          foundStylist._id = stylistId;
 
         conn.Close();
         if (conn != null)
         {
            conn.Dispose();
         }
-
+        Console.WriteLine("Exiting Find with foundStylist as " + foundStylist.GetName());
         return foundStylist;
+        
       }
 
-      public void Edit(string newName)
+      public void Edit(string newName, int myId)
       {
         // WHY EVEN SEND name HERE?
         MySqlConnection conn = DB.Connection();
@@ -209,9 +222,11 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
 
         MySqlParameter searchId = new MySqlParameter();
         searchId.ParameterName = "@searchId";
-        searchId.Value = _id;
+        // searchId.Value = _id;
+        searchId.Value = myId;
         cmd.Parameters.Add(searchId);
-        Console.WriteLine("So, I think I have ID # " + _id + " and name is: " + newName +". Should I look for this._id? " + this._id);
+        // Console.WriteLine("So, I think I have ID # " + _id + " and name is: " + newName +". Should I look for this._id? " + this._id);
+        Console.WriteLine("So, I think I have ID # " + myId + " now and name is: " + newName +".");
         MySqlParameter name = new MySqlParameter();
         name.ParameterName = "@newName";
         name.Value = newName;

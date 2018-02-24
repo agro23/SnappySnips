@@ -83,11 +83,12 @@ EXPECTED OUTPUT: None. But test should pass if the list matches the output list 
 
 * Add DeleteAll for stylists
 
-* Add Edit function <--
+* Add Edit function
   - Test
 * Add Delete for individual stylists
   - Test
-* Add Details View for stylists
+
+* Add Details View for stylists <--
 
 * Add Save() to clients
   - Test
