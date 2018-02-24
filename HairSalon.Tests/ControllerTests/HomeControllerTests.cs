@@ -8,7 +8,7 @@ namespace HairSalon.Controllers.Tests
     [TestClass]
     public class HomeControllerTest
     {
-      
+
       [TestMethod]
         public void Index_ReturnsCorrectView_True()
         {
@@ -19,5 +19,16 @@ namespace HairSalon.Controllers.Tests
             //Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
+
+        [TestMethod] // can I test the CreateForm and other views???
+          public void CreateForm_ReturnsCorrectView_True()
+          {
+              //Arrange
+              //Act
+              ActionResult result = new HomeController().CreateForm();
+
+              //Assert
+              Assert.IsInstanceOfType(result, typeof(ViewResult));
+          }
     }
 }

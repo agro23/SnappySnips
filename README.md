@@ -63,21 +63,17 @@ EXPECTED INPUT (From StylistTests.cs): "Jabba the Hutt", "Jabba the Hutt".
 EXPECTED OUTPUT: None.
   - Test should pass
 
-* Add Save() to stylists <--
+* Add GetAll() to Stylist
+- Test for nothing in db
+EXPECTED INPUT (From StylistTests.cs): GetAll().Count at 0
+EXPECTED OUTPUT: None. But test should pass if the db is empty.
+
+* Add Save() to Stylist
 EXPECTED INPUT (From StylistTests.cs): "Kermit the Frog".
   - Data is written to the db and to a list and they are compared.
 EXPECTED OUTPUT: None.
   - Test should pass
 
-* Add GetAll() to Stylist.cs
-  - Test for nothing in db
-EXPECTED INPUT (From StylistTests.cs): GetAll().Count at 0
-EXPECTED OUTPUT: None. But test should pass if the db is empty.
-
-* Add GetClients() to Stylist.cs
-EXPECTED INPUT (From StylistTests.cs):
-  - two different clients added to a list and the clients db, then retrieved and compared.
-EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
 
 * Create View to see stylists
 
@@ -88,7 +84,29 @@ EXPECTED OUTPUT: None. But test should pass if the list matches the output list 
 * Add Delete for individual stylists
   - Test
 
-* Add Details View for stylists <--
+  * Add Details View for stylists <--------------------------------------------------------------
+  - At the moment it should show NO details since there are no clients!
+
+* Create Client object and test GetName()
+EXPECTED TEST INPUT: "Han Solo, 1"
+EXPECTED OUTPUT: (to ClientTests) "Han Solo"
+  - Test should pass
+
+* Add GetAll() to Client
+- Test for nothing in db
+EXPECTED INPUT (From ClientTests.cs): GetAll().Count at 0
+EXPECTED OUTPUT: None. But test should pass if the db is empty.
+
+* Test equals override in Client model by creating two Client objects and comparing them.
+EXPECTED INPUT (From ClientTests.cs): "Han Solo, 1", "Han Solo, 1".
+EXPECTED OUTPUT: None.
+- Test should pass
+
+* Add GetClients() to Stylist <---------------------------------------------------------------------
+EXPECTED INPUT (From StylistTests.cs):
+  - two different clients added to a list and the clients db, then retrieved and compared.
+EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
+
 
 * Add Save() to clients
   - Test

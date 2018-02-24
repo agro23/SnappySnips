@@ -209,10 +209,10 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
         }
         Console.WriteLine("Exiting Find with foundStylist as " + foundStylist.GetName());
         return foundStylist;
-        
+
       }
 
-      public void Edit(string newName, int myId)
+      public void Update(string newName, int myId)
       {
         // WHY EVEN SEND name HERE?
         MySqlConnection conn = DB.Connection();

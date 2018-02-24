@@ -80,7 +80,7 @@ namespace HairSalon.Controllers
         Console.WriteLine("id is " + id + " and the form sent " + tempX + " so...");
         Stylist thisStylist = Stylist.Find(id);
         Console.WriteLine("Edit should do its trick.");
-        thisStylist.Edit(Request.Form["new-name"], id);
+        thisStylist.Update(Request.Form["new-name"], id);
         return RedirectToAction("Index", thisStylist);
     }
 

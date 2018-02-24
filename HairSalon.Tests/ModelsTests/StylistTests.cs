@@ -29,7 +29,7 @@ namespace HairSalon.Models.Tests
     }
 
     [TestMethod]
-    public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Item()
+    public void Equals_ReturnsTrueIfNamesAreTheSame_Item()
     {
       // Arrange, Act
       Stylist firstStylist = new Stylist("Jabba the Hutt");
@@ -73,25 +73,25 @@ namespace HairSalon.Models.Tests
     }
 
 
-    [TestMethod]
-    public void GetClients_RetrievesAllClientssWithStylist_ClientList()
-    {
-      //Arrange
-      Stylist testStylist = new Stylist("Boba Fett");
-      testStylist.Save();
-
-      //Act
-      Client firstClient = new Client("Frozen Han", testStylist.GetId());
-      firstClient.Save();
-      Client secondClient = new Client("Leia's Grenade", testStylist.GetId());
-      secondClient.Save();
-      // Add to the clients table some new clients
-      List<Client> testClientList = new List<Client> {firstClient, secondClient};
-      List<Client> resultClientList = testStylist.GetClients();
-
-      //Assert
-      CollectionAssert.AreEqual(testClientList, resultClientList);
-    }
+    // [TestMethod] // test this once Client object is tested!
+    // public void GetClients_RetrievesAllClientssWithStylist_ClientList()
+    // {
+    //   //Arrange
+    //   Stylist testStylist = new Stylist("Boba Fett");
+    //   testStylist.Save();
+    //
+    //   //Act
+    //   Client firstClient = new Client("Frozen Han", testStylist.GetId());
+    //   firstClient.Save();
+    //   Client secondClient = new Client("Leia's Grenade", testStylist.GetId());
+    //   secondClient.Save();
+    //   // Add to the clients table some new clients
+    //   List<Client> testClientList = new List<Client> {firstClient, secondClient};
+    //   List<Client> resultClientList = testStylist.GetClients();
+    //
+    //   //Assert
+    //   CollectionAssert.AreEqual(testClientList, resultClientList);
+    // }
 
     [TestMethod]
     public void Find_FindsItemInDatabase_Item()
