@@ -94,6 +94,38 @@ namespace HairSalon.Models.Tests
             CollectionAssert.AreNotEqual(testList, Client.GetAll());
         }
 
+        [TestMethod]
+        public void Find_ClientInDbToMatchList_True()
+        {
+            //Arrange
+            Client.DeleteAll(); // clear the db first!
+            List<Client> testList = new List<Client>();
+
+            Client testClient1 = new Client("Iron Man", 1);
+            testClient1.Save();
+            testList.Add(testClient1);
+
+            Client testClient2 = new Client("Hulk", 1);
+            testClient2.Save();
+            testList.Add(testClient2);
+
+            Client testClient3 = new Client("Thor", 1);
+            testClient3.Save();
+            testList.Add(testClient3);
+
+            //Act
+            string x = Client.Find(1).GetName(); // should get first record
+            string x1 = testList[0].GetName();
+
+            //Assert
+            Assert.AreEqual(x, x1);
+        }
+
+
+
+
+
+
     } // end class
 
 } // end namespace

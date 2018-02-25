@@ -92,35 +92,39 @@ For reference, here are the previous weeks' objectives:
   - EXPECTED OUTPUT: (to ClientTests) "Han Solo"
   - Test should pass
 
-* Add GetAll() to Client
+* Add GetAll() to Client.cs
   - Test for nothing in db
   - EXPECTED INPUT (From ClientTests.cs): GetAll().Count at 0
   - EXPECTED OUTPUT: None. But test should pass if the db is empty.
 
-* Test Equals override in Client model by creating two Client objects and comparing them.
+* Test Equals override in Client.cs by creating two Client objects and comparing them.
   - EXPECTED INPUT (From ClientTests.cs): "Han Solo, 1", "Han Solo, 1".
   - EXPECTED OUTPUT: None.
   - Test should pass
 
-* Add Save() to clients
+* Add Save() to Client.cs
   - Test by creating Client and saving to the db, and to a list, then GetAll() and compare them.
   - EXPECTED INPUT (From ClientTests.cs): "Chewbacca, 1".
   - EXPECTED OUTPUT: None.
 
-* Add DeleteAll() to clients <----
+* Add DeleteAll() to Client.cs
   - Test by filling the database with some clients, and list with some clients, then run DeleteAll(). If Client.GetAll() and list are NOT equal it works.
   - EXPECTED INPUT (From ClientTests.cs): "Iron Man, 1".
   - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1".
   - EXPECTED INPUT (From ClientTests.cs): "Thor, 1".
   - EXPECTED OUTPUT: None.
 
-* Add Find() to clients
+* Add Find() to Client.cs
+  - Test by filling the database with some clients, and list with some clients, then run Find(). If Client.Find(1).GetName() and list[0] are equal it works.
+  - EXPECTED INPUT (From ClientTests.cs): "Iron Man, 1".
+  - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1".
+  - EXPECTED INPUT (From ClientTests.cs): "Thor, 1".
+  - EXPECTED OUTPUT: None.
+
+* Add Edit() to Client.cs <----
   - Test
 
-* Add Edit() function
-  - Test
-
-* Add Delete() for individual clients
+* Add Delete() for individual clients to Client.cs
   - Test
 
 * Add GetClients() to Stylist <---------------------------------------------------------------------
