@@ -214,32 +214,32 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
 
       public void Update(string newName, int myId)
       {
-        // WHY EVEN SEND name HERE?
-        MySqlConnection conn = DB.Connection();
-        conn.Open();
-        var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"UPDATE stylists SET name = @newName WHERE id = @searchId;"; // Really? Where am I getting ID from???
+          // WHY EVEN SEND name HERE?
+          MySqlConnection conn = DB.Connection();
+          conn.Open();
+          var cmd = conn.CreateCommand() as MySqlCommand;
+          cmd.CommandText = @"UPDATE stylists SET name = @newName WHERE id = @searchId;"; // Really? Where am I getting ID from???
 
-        MySqlParameter searchId = new MySqlParameter();
-        searchId.ParameterName = "@searchId";
-        // searchId.Value = _id;
-        searchId.Value = myId;
-        cmd.Parameters.Add(searchId);
-        // Console.WriteLine("So, I think I have ID # " + _id + " and name is: " + newName +". Should I look for this._id? " + this._id);
-        Console.WriteLine("So, I think I have ID # " + myId + " now and name is: " + newName +".");
-        MySqlParameter name = new MySqlParameter();
-        name.ParameterName = "@newName";
-        name.Value = newName;
-        cmd.Parameters.Add(name);
+          MySqlParameter searchId = new MySqlParameter();
+          searchId.ParameterName = "@searchId";
+          // searchId.Value = _id;
+          searchId.Value = myId;
+          cmd.Parameters.Add(searchId);
+          // Console.WriteLine("So, I think I have ID # " + _id + " and name is: " + newName +". Should I look for this._id? " + this._id);
+          Console.WriteLine("So, I think I have ID # " + myId + " now and name is: " + newName +".");
+          MySqlParameter name = new MySqlParameter();
+          name.ParameterName = "@newName";
+          name.Value = newName;
+          cmd.Parameters.Add(name);
 
-        cmd.ExecuteNonQuery();
-        _name = newName;
+          cmd.ExecuteNonQuery();
+          _name = newName;
 
-        conn.Close();
-        if (conn != null)
-        {
-            conn.Dispose();
-        }
+          conn.Close();
+          if (conn != null)
+          {
+              conn.Dispose();
+          }
       }
 
       public static void Delete(int Id)

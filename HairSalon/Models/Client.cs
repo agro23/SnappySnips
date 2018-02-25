@@ -140,65 +140,39 @@ namespace HairSalon.Models
             return newClient;
         }
 
-        // public static Client Find(int id) // New Code!
-        // {
-        //     // Item foundItem= new Item("testDescription");
-        //     // return foundItem;
-        //
-        //     MySqlConnection conn = DB.Connection();
-        //     conn.Open();
-        //
-        // Console.WriteLine("So, in Client-Find I think I have ID # " + id);
-        //
-        //     var cmd = conn.CreateCommand() as MySqlCommand;
-        //     cmd.CommandText = @"SELECT * FROM clients WHERE id = @thisId;";
-        //
-        //     MySqlParameter thisId = new MySqlParameter();
-        //     thisId.ParameterName = "@thisId";
-        //     thisId.Value = id;
-        //     cmd.Parameters.Add(thisId);
-        //
-        //     Console.WriteLine("I'm looking for record: " + id);
-        //
-        //     int clientId = 0; // try 0 instead of id?
-        //     string clientName = "";
-        //
-        //     try
-        //     {
-        //     var rdr = cmd.ExecuteReader() as MySqlDataReader;
-        //       while (rdr.Read())
-        //       {
-        //          clientId = rdr.GetInt32(0);
-        //          Console.WriteLine("And I got id from the db: " + clientId);
-        //          clientName = rdr.GetString(1);
-        //          Console.WriteLine("And I got name from the db: " + clientName);
-        //       }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //       Console.WriteLine("Find() Exception: " + ex);
-        //     }
-        //
-        //     Console.WriteLine("clientName = " + clientName);
-        //     Console.WriteLine("clientId = " + clientId);
-        //     Client foundClient= new Client(clientName, 0); // have to pass something to client as a stylist id for now, yes?
-        //     // List<Stylist> tempStylists = Stylist.GetAll();
-        //     // Stylist foundStylist = tempStylists[stylistId];
-        //     // Stylist foundStylist = Stylist.GetAll()[???];
-        //       Console.WriteLine("foundClient is " + foundClient.GetName());
-        //       foundClient._id = clientId;
-        //
-        //     conn.Close();
-        //     if (conn != null)
-        //     {
-        //        conn.Dispose();
-        //     }
-        //     Console.WriteLine("Exiting Find with foundClient as " + foundClient.GetName());
-        //     return foundClient;
-        //
-        //   }
+        public void Update(string newName, int stylistsId, int myId)
+        // Client.Update() must also take a stylistId even if it stays the same
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE clients SET name = @newName, stylist_id = @stylistId WHERE id = @searchId;";
 
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = myId;
+            cmd.Parameters.Add(searchId);
 
+            Console.WriteLine("So, I think I have ID # " + myId + " now and name is: " + newName +".");
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@newName";
+            name.Value = newName;
+            cmd.Parameters.Add(name);
+
+            MySqlParameter stylistId = new MySqlParameter();
+            stylistId.ParameterName = "@stylistId";
+            stylistId.Value = stylistsId;
+            cmd.Parameters.Add(stylistId);
+
+            cmd.ExecuteNonQuery();
+            _name = newName;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
 
         public static void DeleteAll()
         {

@@ -121,6 +121,23 @@ namespace HairSalon.Models.Tests
             Assert.AreEqual(x, x1);
         }
 
+        [TestMethod]
+        public void Update_SavedClientNameNotEqualToNewNameAfter_True()
+        {
+            //Arrange
+            Client.DeleteAll(); // clear the db first!
+            Client testClient = new Client("Bruce Banner", 1);
+            testClient.Save();
+            string x = testClient.GetName();
+
+            //Act
+            testClient.Update("Hulk", testClient.GetStylistId(), testClient.GetId());
+            string x1 = testClient.GetName();
+
+            //Assert
+            Assert.AreNotEqual(x, x1);
+        }
+
 
 
 

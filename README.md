@@ -119,12 +119,14 @@ For reference, here are the previous weeks' objectives:
   - EXPECTED INPUT (From ClientTests.cs): "Iron Man, 1".
   - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1".
   - EXPECTED INPUT (From ClientTests.cs): "Thor, 1".
-  - EXPECTED OUTPUT: None.
 
-* Add Edit() to Client.cs <----
-  - Test
+* Add Update() to Client.cs
+  - Test if saved Client.GetName() is the same as Client.GetName() after Update()
+  - EXPECTED INPUT (From ClientTests.cs): "Bruce Banner, 1"
+  - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1"
+  - EXPECTED OUTPUT: None
 
-* Add Delete() for individual clients to Client.cs
+* Add Delete() for individual clients to Client.cs <----
   - Test
 
 * Add GetClients() to Stylist <---------------------------------------------------------------------

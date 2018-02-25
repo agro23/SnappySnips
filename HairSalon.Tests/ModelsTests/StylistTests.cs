@@ -72,6 +72,23 @@ namespace HairSalon.Models.Tests
       Assert.AreEqual(1, Stylist.GetAll().Count);
     }
 
+    [TestMethod]
+    public void Save_DbAssignsIdToStylist_Id()
+    {
+     //Arrange
+     Stylist testStylist = new Stylist("Sister Mary Elephant");
+     testStylist.Save();
+
+     //Act
+     Stylist savedStylist = Stylist.GetAll()[0];
+
+     int result = savedStylist.GetId();
+     int testId = testStylist.GetId();
+
+     //Assert
+     Assert.AreEqual(testId, result);
+    }
+
 
     // [TestMethod] // test this once Client object is tested!
     // public void GetClients_RetrievesAllClientssWithStylist_ClientList()
