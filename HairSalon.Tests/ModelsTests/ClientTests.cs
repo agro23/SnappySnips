@@ -54,15 +54,15 @@ namespace HairSalon.Models.Tests
         }
 
         [TestMethod]
-        public void Save_SavesToDatabase_ItemList()
+        public void Save_SavesToDatabase_ClientList()
         {
             //Arrange
             Client testClient = new Client("Chewbacca", 1);
 
             //Act
-            testItem.Save();
+            testClient.Save();
             List<Client> result = Client.GetAll();
-            List<Client> testList = new List<Client>{testItem};
+            List<Client> testList = new List<Client>{testClient};
 
             //Assert
             CollectionAssert.AreEqual(testList, result);

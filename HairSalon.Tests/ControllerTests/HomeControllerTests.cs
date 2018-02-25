@@ -20,7 +20,7 @@ namespace HairSalon.Controllers.Tests
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
-        [TestMethod] // can I test the CreateForm and other views???
+        [TestMethod]
           public void CreateForm_ReturnsCorrectView_True()
           {
               //Arrange
@@ -30,5 +30,16 @@ namespace HairSalon.Controllers.Tests
               //Assert
               Assert.IsInstanceOfType(result, typeof(ViewResult));
           }
+
+          // [TestMethod] // enable this when ClientsController is ready and Stylist.GetClients() works.
+          // public void StylistDetails_ReturnsCorrectView_True()
+          // {
+          //     //Arrange
+          //     ActionResult result = new HomeController().StylistDetails();
+          //     //Act
+          //
+          //     //Assert
+          //     Assert.IsInstanceOfType(result, typeof(ViewResult));
+          // }
     }
 }
