@@ -1,5 +1,3 @@
-
-
 @{
   Layout = "_Layout";
 }
@@ -9,12 +7,12 @@
     <h1>Rapunzel Hair Salon</h1>
   </div>
   <div class="container well">
-    <h2>Add a Stylist</h2>
+    <h2>Add a Client to @Model.GetName()</h2>
 
     <div class="row">
-      <form action="/stylists" method="post">
-        <label for="new-stylist">New stylist:</label>
-          <input id="new-stylist" name="new-stylist" type="text">
+      <form action="/clients/@Model.GetId()" method="post">
+        <label for="new-client">New Client:</label>
+          <input id="new-client" name="new-client" type="text">
         <button type="submit">Add</button>
       </form>
     </div>

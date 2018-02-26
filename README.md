@@ -140,7 +140,7 @@ For reference, here are the previous weeks' objectives:
 
 * Add Details View for stylists using GetClients() where clients are visible. If no clients say so.
 
-* Modify stylist Update View to show Client list using GetClients() method. <-- 
+* Modify stylist Update View to show Client list using GetClients() method.
 
 * Add an "Add Client" link to stylists Update View using Client.Update() with id of current stylist.
 

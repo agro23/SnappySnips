@@ -1,33 +1,42 @@
 @{
   Layout = "_Layout";
 }
+<div class="container">
+  <div class="well row">
+    <h1>Rapunzel Hair Salon</h1>
+  </div>
 
-<div class="container well">
-  <h1>STYLIST NAME: @Model.GetName()</h1>
+  <div class = "well row">
+    <h4><a href="/clients/@Model.GetId()/new">NEW CLIENT</a> | <a href="/">BACK</a></h4>
+  </div>
 
-  <!--
-  <a href='/stylists/@Model.GetId()/stylists/new'>Add another stylist</a><br>
-  <a href='/clients'>View all Clients</a>
-  <h2>This is legacy code. Forget about it!</h2>
-  -->
-  <h4>This expects to receive a single stylist and its clients</h4>
-
-  @if(@Model.GetClients().Count > 0)
-  {
-    @foreach (var client in Model)
-    {
+  <div class="well">
+    <div class="row">
       <div class="col-lg-6">
-        <h4><a href="/clients/@client.GetId()/ClientDetails">@client.GetId() | @client.GetName()</a></h4>
+        <h3>CLIENT</h3>
       </div>
       <div class="col-lg-4">
-        <h3>VIEW | <a href="/clients/@client.GetId()/update">EDIT</a> | <a href="/clients/@client.GetId()/delete">DELETE</a></h3>
+        <h3>ACTION</h3>
       </div>
-    }
-  }
-  else
-  {
-    <h4>@Model.GetName() has no clients right now.</h4>
-  }
-  <h4><a href="/clients/new">Add Client</a></h4>
-  <h4><a href="/">Return Home</a></h4>
+    </div>
+
+    <div class="row">
+      @if(@Model.GetClients().Count > 0)
+      {
+          @foreach (var client in @Model.GetClients())
+          {
+            <div class="col-lg-6">
+              <h4><a href="/clients/@client.GetId()/ClientDetails">@client.GetName()</a></h4>
+            </div>
+            <div class="col-lg-4">
+              <h4><a href="/clients/@client.GetId()/update">EDIT</a> | <a href="/clients/@client.GetId()/delete">DELETE</a></h4>
+            </div>
+          }
+      }
+      else
+      {
+        <h4>@Model.GetName() has no clients right now.</h4>
+      }
+    </div>
+  </div>
 </div>

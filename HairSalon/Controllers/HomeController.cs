@@ -127,6 +127,90 @@ namespace HairSalon.Controllers
       return View("Index", Stylist.GetAll());
     }
 
+    [HttpGet("/clients/{stylistId}/new")]
+    public ActionResult CreateClientForm(int stylistId)
+    {
+      Console.WriteLine("I'm in CreateClientForm()");
+      Console.WriteLine("Do I know what stylist I came from? " + Stylist.Find(stylistId).GetName());
+
+        // return View("Index");
+        // return View(Stylist.Find(stylistId));
+        return View(Stylist.Find(stylistId)); // was just passing stylistId
+    }
+
+    [HttpPost("/clients/{stylistId}")] // do I have to actively seek this? /clients/{stylistId}
+    public ActionResult CreateClient(int stylistId)
+    {
+      Client newClient = new Client (Request.Form["new-client"], stylistId);
+      // Client newClient = new Client (Request.Form["new-client"], someStylist.GetId());
+      Console.WriteLine("I'm in CreateClient()");
+      Console.WriteLine("Using stylisstsId: " + stylistId);
+      Console.WriteLine("The details are: " + Request.Form["new-client"] + ", " + stylistId);
+      //
+      newClient.Save();
+      // List<Client> allClients = Client.GetAll();
+      // return RedirectToAction("Index");
+      return View("Details", Stylist.Find(stylistId)); // Need to pass back the stylist!
+      // return View("Index");
+    }
+
+    [HttpGet("clients/{id}/ClientDetails")]
+    public ActionResult ClientDetails(int id)
+    {
+        return View(Client.Find(id));
+    }
+
+    [HttpGet("/clients/{clientId}/delete")]
+    public ActionResult DeleteClient(int clientId)
+    {
+
+        int stylistId = Client.Find(clientId).GetStylistId();
+        Client.Delete(clientId);
+        // stylists/2/details
+
+        // return RedirectToAction("Index");
+        return View("Details", Stylist.Find(stylistId));
+    }
+
+    [HttpGet("/clients/{id}/update")]
+    public ActionResult UpdateFormClient(int id)
+    {
+      Console.WriteLine("I'm in UpdateFormClient() and ID is " + id);
+        // Stylist newStylist = Stylist.Find(id);
+        // return View("Update", newStylist);
+        return View("UpdateClient", Client.Find(id));
+    }
+
+
+    [HttpPost("/clients/{id}/update")]
+    public ActionResult UpdateClient(int id)
+    {
+        string tempX = Request.Form["new-name"];
+        Console.WriteLine("id is " + id + " and the form sent " + tempX + " so...");
+        Client thisClient = Client.Find(id);
+        Console.WriteLine("Edit should do its trick.");
+        Console.WriteLine("The Stylist for " + thisClient.GetName() + " is " + Stylist.Find(thisClient.GetStylistId()).GetName());
+        thisClient.Update(Request.Form["new-name"], thisClient.GetStylistId(), id);
+        // return RedirectToAction("Details", Stylist.Find(thisClient.GetStylistId()));
+        return View("Details", Stylist.Find(thisClient.GetStylistId()));
+    }
+
+// [HttpGet("/deleteAll")]
+// public ActionResult ClientDeleteAll()
+// {
+//   // return View("Index", Stylist.GetString());
+//   Stylist.DeleteAll();
+//   return View("Index", Stylist.GetAll());
+// }
+//
+// [HttpGet("/deleteClient")]
+// public ActionResult DeleteClient()
+// {
+//   // return View("Index", Stylist.GetString());
+//
+//   return View("Index", Stylist.GetAll());
+// }
+
 
   }
 }

@@ -8,7 +8,8 @@
     <input type="text" name="new-name" id="new-name" value="@Model.GetName()">
     <button type="submit">Edit</button>
   </form>
-  <h4><a href="/stylists">Return home</a></h4>
-</div>
 
-<h2>This should have an Add Client feature!</h2>
+  
+  <h4><a href="/clients/@Model.GetId()/new">Add A Client</a></h4>
+  <h4><a href="/stylists">Return to Stylist Page</a></h4>
+</div>
