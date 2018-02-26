@@ -77,16 +77,26 @@ For reference, here are the previous weeks' objectives:
 
 * Create View to see stylists
 
-* Add DeleteAll() for stylists <-----
+* Add DeleteAll() to Stylist.cs
+  - Test by filling the database with some stylists, and list with some stylists, then run DeleteAll(). If Stylist.GetAll() and list are NOT equal it works.
+  - EXPECTED INPUT (From ClientTests.cs): "Han Solo".
+  - EXPECTED INPUT (From ClientTests.cs): "Chewbacca".
+  - EXPECTED INPUT (From ClientTests.cs): "Princess Leia".
+  - EXPECTED OUTPUT: None.
 
-* Add Edit function <-----
-  - Test
-* Add Delete for individual stylists <-----
-  - Test
+* Add Update() to Stylist.cs
+  - Test if saved Stylist.GetName() is the same as Stylist.GetName() after Update()
+  - EXPECTED INPUT (From StylistTests.cs): "Princess Leia"
+  - EXPECTED INPUT (From StylistTests.cs): "General Organa"
+  - EXPECTED OUTPUT: None
 
-* Add Details View for stylists <-----------------------------------------------------------------------------------
-- At the moment it should show NO details since there are no clients!
-  - Test by HomeController calling it with and without data.
+* Add Delete() for individual stylists to Stylist.cs
+  - EXPECTED INPUT (From StylistTests.cs): five new Stylist objects ("Buffy the Vampire Slayer", "Terminator T-1000", "Fred Flintstone", "Terminator T-800", "George Jetson")
+  - Data is written to the db and to a list; an item is removed from the list and from the corresponding record of the db, then they are compared.
+  - EXPECTED OUTPUT: None.
+  - Test should pass if Stylist.GetAll() and the list of Stylist objects are the same after deletion.
+
+* Add Details View for stylists
 
 * Create Client object and test GetName()
   - EXPECTED TEST INPUT: "Han Solo, 1"
@@ -148,6 +158,8 @@ For reference, here are the previous weeks' objectives:
 
 * Add an "Update Client" link to stylists Details View using Client.Update() with id of current stylist.
 
+* Add an "Update Client" letting them change stylist"
+
 * Style Views with better HTML and CSS
 
 * Refactor code as needed.
@@ -162,16 +174,16 @@ This project was similar in structure and scope to the To Do List project. So, I
 * Go in to HairSalon.Tests -> ModelsTests -> HairSalonModelTest.cs and change the ConnectionString in DBConfiguration to reflect your correct userID, password, and port as needed.
   - (this will probabaly be "server=localhost;user id=root;password=root;port=8889;database=to_do_test;")
 * Download the database OR use MySQL to:
-  `>`CREATE DATABASE andy_grossberg;
-  `>`USE andy_grossberg;
-  `>`CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylist_id INT);
-  `>`CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
-    * THEN Follow these same instructions to create the test database andy_grossberg_Test
-* Inside HairSalon.Tests, run the command 'dotnet test' from the command line
-* Inside HairSalon, run the command 'dotnet restore' to download the necessary packages.
-* Run the command 'dotnet build' to build to build the app.
-* Run the command 'dotnet run' to run the server on localhost.
-* Use your preferred web browser to navigate to localhost:5000
+  - CREATE DATABASE andy_grossberg;
+  - USE andy_grossberg;
+  - CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylist_id INT) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+* THEN Follow these same instructions to create the test database andy_grossberg_Test
+  - Inside HairSalon.Tests, run the command 'dotnet test' from the command line
+  - Inside HairSalon, run the command 'dotnet restore' to download the necessary packages.
+  - Run the command 'dotnet build' to build to build the app.
+  - Run the command 'dotnet run' to run the server on localhost.
+  - Use your preferred web browser to navigate to localhost:5000
 
 ## Support and contact details
 

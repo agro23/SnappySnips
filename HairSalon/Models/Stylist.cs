@@ -120,14 +120,14 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM stylists; ALTER TABLE stylists AUTO_INCREMENT = 1;"; // should autincrement reset to 0 or 1?
+        cmd.CommandText = @"DELETE FROM stylists; DELETE FROM clients; ALTER TABLE stylists AUTO_INCREMENT = 1; ALTER TABLE clients AUTO_INCREMENT = 1;"; // should autincrement reset to 0 or 1?
         try
         {
           cmd.ExecuteNonQuery();
         }
         catch (Exception ex)
         {
-          Console.WriteLine("Exception in DeleteAll: " + ex);
+            Console.WriteLine("Exception in DeleteAll: " + ex);
         }
 
         conn.Close();
@@ -137,20 +137,20 @@ namespace HairSalon.Models
 
     public void Save()
     {
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
 
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@Name);";
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@Name);";
 
-      cmd.Parameters.Add(new MySqlParameter("@Name", _name));
+        cmd.Parameters.Add(new MySqlParameter("@Name", _name));
 
-      cmd.ExecuteNonQuery();
-      _id = (int)cmd.LastInsertedId;
+        cmd.ExecuteNonQuery();
+        _id = (int)cmd.LastInsertedId;
 
-      conn.Close();
-      if (conn != null)
-        conn.Dispose();
+        conn.Close();
+        if (conn != null)
+          conn.Dispose();
     }
 
     public static Stylist Find(int id) // New Code!
@@ -160,9 +160,6 @@ namespace HairSalon.Models
 
         MySqlConnection conn = DB.Connection();
         conn.Open();
-
-Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
-
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT * FROM stylists WHERE id = @thisId;";
 
@@ -171,98 +168,80 @@ Console.WriteLine("So, in Stylist-Find I think I have ID # " + id);
         thisId.Value = id;
         cmd.Parameters.Add(thisId);
 
-        Console.WriteLine("I'm looking for record: " + id);
-
-        Console.WriteLine("Got this far in Find!");
         int stylistId = id; // try THAT instead of 0!
         string stylistName = "";
 
         try
         {
-        var rdr = cmd.ExecuteReader() as MySqlDataReader;
-          while (rdr.Read())
-          {
-             stylistId = rdr.GetInt32(0);
-             Console.WriteLine("And I got from the db: " + stylistId);
-             stylistName = rdr.GetString(1);
-             Console.WriteLine("And I got from the db: " + stylistName);
-          }
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+               stylistId = rdr.GetInt32(0);
+               stylistName = rdr.GetString(1);
+            }
         }
         catch (Exception ex)
         {
-          Console.WriteLine("Find() Exception: " + ex);
+            Console.WriteLine("Find() Exception: " + ex);
         }
 
-        Console.WriteLine("stylistName = " + stylistName);
-        Console.WriteLine("stylistId = " + stylistId);
         Stylist foundStylist= new Stylist(stylistName);
-        // List<Stylist> tempStylists = Stylist.GetAll();
-        // Stylist foundStylist = tempStylists[stylistId];
-        // Stylist foundStylist = Stylist.GetAll()[???];
-          Console.WriteLine("foundStylist is " + foundStylist.GetName());
-          foundStylist._id = stylistId;
+        foundStylist._id = stylistId;
 
-        conn.Close();
-        if (conn != null)
-        {
-           conn.Dispose();
-        }
-        Console.WriteLine("Exiting Find with foundStylist as " + foundStylist.GetName());
-        return foundStylist;
-
-      }
-
-      public void Update(string newName, int myId)
-      {
-          // WHY EVEN SEND name HERE?
-          MySqlConnection conn = DB.Connection();
-          conn.Open();
-          var cmd = conn.CreateCommand() as MySqlCommand;
-          cmd.CommandText = @"UPDATE stylists SET name = @newName WHERE id = @searchId;"; // Really? Where am I getting ID from???
-
-          MySqlParameter searchId = new MySqlParameter();
-          searchId.ParameterName = "@searchId";
-          // searchId.Value = _id;
-          searchId.Value = myId;
-          cmd.Parameters.Add(searchId);
-          // Console.WriteLine("So, I think I have ID # " + _id + " and name is: " + newName +". Should I look for this._id? " + this._id);
-          Console.WriteLine("So, I think I have ID # " + myId + " now and name is: " + newName +".");
-          MySqlParameter name = new MySqlParameter();
-          name.ParameterName = "@newName";
-          name.Value = newName;
-          cmd.Parameters.Add(name);
-
-          cmd.ExecuteNonQuery();
-          _name = newName;
-
-          conn.Close();
-          if (conn != null)
-          {
-              conn.Dispose();
-          }
-      }
-
-      public static void Delete(int Id)
-      {
-        MySqlConnection conn = DB.Connection();
-        conn.Open();
-        var cmd = conn.CreateCommand() as MySqlCommand;
-        // cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId;";
-        cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisId;";
-
-Console.WriteLine("So, in Delete I think I have ID # " + Id);
-
-        MySqlParameter thisId = new MySqlParameter();
-        thisId.ParameterName = "@thisId";
-        thisId.Value = Id;
-        cmd.Parameters.Add(thisId);
-        cmd.ExecuteNonQuery();
         conn.Close();
         if (conn != null)
         {
             conn.Dispose();
         }
+        return foundStylist;
+    }
+
+    public void Update(string newName, int myId)
+    {
+        // WHY EVEN SEND name HERE?
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"UPDATE stylists SET name = @newName WHERE id = @searchId;"; // Really? Where am I getting ID from???
+
+        MySqlParameter searchId = new MySqlParameter();
+        searchId.ParameterName = "@searchId";
+        // searchId.Value = _id;
+        searchId.Value = myId;
+        cmd.Parameters.Add(searchId);
+        MySqlParameter name = new MySqlParameter();
+        name.ParameterName = "@newName";
+        name.Value = newName;
+        cmd.Parameters.Add(name);
+
+        cmd.ExecuteNonQuery();
+        _name = newName;
+
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+    }
+
+    public static void Delete(int Id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      // cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId;";
+      cmd.CommandText = @"DELETE FROM stylists WHERE id = @thisId;";
+      MySqlParameter thisId = new MySqlParameter();
+      thisId.ParameterName = "@thisId";
+      thisId.Value = Id;
+      cmd.Parameters.Add(thisId);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+          conn.Dispose();
       }
+    }
 
   }
 }

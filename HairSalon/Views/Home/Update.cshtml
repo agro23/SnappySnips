@@ -1,15 +1,24 @@
 @{
   Layout = "_Layout";
 }
-<div class="container well">
-  <h2>Update Stylist:</h2>
-  <form action="/stylists/@Model.GetId()/update" method="post">
-    <label for="name">Name:</label>
-    <input type="text" name="new-name" id="new-name" value="@Model.GetName()">
-    <button type="submit">Edit</button>
-  </form>
 
-  
-  <h4><a href="/clients/@Model.GetId()/new">Add A Client</a></h4>
-  <h4><a href="/stylists">Return to Stylist Page</a></h4>
+<div class="container">
+  <div class="well row">
+    <h1>Rapunzel Hair Salon</h1>
+  </div>
+  <div class="container well">
+    <h2>Update Stylist: @Model.GetName()</h2>
+    <div class="row">
+      <form action="/stylists/@Model.GetId()/update" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="new-name" id="new-name" value="@Model.GetName()">
+        <button type="submit">EDIT</button>
+      </form>
+
+    </div>
+    <div class="row">
+      <h4><a href="/clients/@Model.GetId()/new">ADD CLIENT</a></h4>
+      <h4><a href="/stylists/@Model.GetId()/details">BACK</a></h4>
+    </div>
+  </div>
 </div>
