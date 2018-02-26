@@ -138,10 +138,40 @@ namespace HairSalon.Models.Tests
             Assert.AreNotEqual(x, x1);
         }
 
+        [TestMethod]
+        public void Delete_ClientFromDatabase_Void()
+        {
+            //Arrange
+            List<Client> testList = new List<Client>();
+            Client testClient;
 
+            testClient = new Client("Iron Man", 1);
+            testClient.Save();
+            testList.Add(testClient);
 
+            testClient = new Client("Hulk", 1);
+            testClient.Save();
+            testList.Add(testClient);
 
+            testClient = new Client("Thor", 1);
+            testClient.Save();
+            testList.Add(testClient);
 
+            testClient = new Client("Captain America", 1);
+            testClient.Save();
+            testList.Add(testClient);
+
+            testClient = new Client("Black Widow", 1);
+            testClient.Save();
+            testList.Add(testClient);
+
+            //Act
+            Client.Delete(3); // Why is Stylist ahead by one? Do I reindex somewhere?!
+            testList.RemoveAt(2);
+
+            //Assert
+            CollectionAssert.AreEqual(testList, Client.GetAll());
+        }
 
     } // end class
 

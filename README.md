@@ -126,13 +126,16 @@ For reference, here are the previous weeks' objectives:
   - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1"
   - EXPECTED OUTPUT: None
 
-* Add Delete() for individual clients to Client.cs <----
-  - Test
+* Add Delete() for individual clients to Client.cs
+  - EXPECTED INPUT (From ClientTests.cs): five new Client objects with stylist_id 1 ("Iron Man", "Hulk", "Thor", "Captain America", "Black Widow")
+  - Data is written to the db and to a list; an item is removed from the list and from the corresponding record of the db, then they are compared.
+  - EXPECTED OUTPUT: None.
+  - Test should pass if Client.GetAll() and the list of Client objects are the same after deletion.
 
-* Add GetClients() to Stylist <---------------------------------------------------------------------
-- EXPECTED INPUT (From StylistTests.cs):
-- two different clients added to a list and the clients db, then retrieved and compared.
-- EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
+* Add GetClients() to Stylist  TEST THIS IN STYLIST TESTS! <--
+  - EXPECTED INPUT (From StylistTests.cs):
+  - two different clients added to a list and the clients db, then retrieved and compared.
+  - EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
 
 * Add Details View for clients
 
@@ -150,13 +153,13 @@ This project was similar in structure and scope to the To Do List project. So, I
 * Go in to HairSalon.Tests -> ModelsTests -> HairSalonModelTest.cs and change the ConnectionString in DBConfiguration to reflect your correct userID, password, and port as needed.
   - (this will probabaly be "server=localhost;user id=root;password=root;port=8889;database=to_do_test;")
 * Download the database OR use MySQL to:
-  `>`CREATE DATABASE Andy_Grossberg;
-  `>`USE Andy_Grossberg;
+  `>`CREATE DATABASE andy_grossberg;
+  `>`USE andy_grossberg;
   `>`CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylist_id INT);
   `>`CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
-    * THEN Follow these same instructions to create the test databse Andy_Grossberg_Test
+    * THEN Follow these same instructions to create the test database andy_grossberg_Test
 * Inside HairSalon.Tests, run the command 'dotnet test' from the command line
-* Run the command 'dotnet restore' to download the necessary packages.
+* Inside HairSalon, run the command 'dotnet restore' to download the necessary packages.
 * Run the command 'dotnet build' to build to build the app.
 * Run the command 'dotnet run' to run the server on localhost.
 * Use your preferred web browser to navigate to localhost:5000
