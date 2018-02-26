@@ -26,7 +26,7 @@
           @foreach (var item in Model)
           {
             <div class="col-lg-6">
-              <h4><a href="/StylistDetails">@item.GetId() | @item.GetName()</a></h4>
+              <h4><a href="/stylists/@item.GetId()/details">@item.GetId() | @item.GetName()</a></h4>
             </div>
             <div class="col-lg-4">
               <h3>VIEW | <a href="/stylists/@item.GetId()/update">EDIT</a> | <a href="/stylists/@item.GetId()/delete">DELETE</a></h3>

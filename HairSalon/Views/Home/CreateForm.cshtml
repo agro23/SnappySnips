@@ -3,18 +3,29 @@
 }
 <div class="container">
 
-  <div class="well">
+  <div class="well row">
     <h1>Rapunzel Hair Salon</h1>
   </div>
+  <div class="well row">
+    <h2>Add a Stylist</h2>
+  </div>
 
-
-  <div class="container well">
-    <h1>Add a Stylist:</h1>
-    <form action="/stylists" method="post">
-      <label for="new-stylist">Item description</label>
-      <input id="new-stylist" name="new-stylist" type="text">
-      <button type="submit">Add</button>
-    </form>
+  <div class="well row"> <!-- was container well-->
+    <div class="row">
+      <form action="/stylists" method="post">
+        <label for="new-stylist">New Stylist:</label>
+        <input id="new-stylist" name="new-stylist" type="text">
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </div>
+  <div class="container">  
+    <div class="row">
+      <h4><a href="/">Return Home</a></h4>
+    </div>
+    <div class="row">
+      <h5>To add a Client to this Stylist click on the stylist's name on the Home page.</h5>
+    </div>
   </div>
 
 </div>

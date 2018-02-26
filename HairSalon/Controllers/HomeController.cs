@@ -37,13 +37,13 @@ namespace HairSalon.Controllers
       // return View();
     }
 
-    [HttpGet("/stylists/{id}")]
-    public ActionResult Details(int id)
-    {
-      Console.WriteLine("I'm in Find()");
-        Stylist newStylist = Stylist.Find(id);
-        return View(newStylist);
-    }
+    // [HttpGet("/stylists/{id}")]
+    // public ActionResult Details(int id)
+    // {
+    //   Console.WriteLine("I'm in Find()");
+    //     Stylist newStylist = Stylist.Find(id);
+    //     return View(newStylist);
+    // }
 
     [HttpGet("/stylists/{id}/update")]
     public ActionResult UpdateForm(int id)
@@ -53,6 +53,18 @@ namespace HairSalon.Controllers
         // return View("Update", newStylist);
         return View("Update", Stylist.Find(id));
     }
+
+    [HttpGet("/stylists/{id}/details")]
+    public ActionResult Details(int id)
+    // was going to be StylistDetails but I took out Details() above
+    {
+      Console.WriteLine("I'm in Details view() and ID is " + id);
+        // Stylist newStylist = Stylist.Find(id);
+        // return View("Update", newStylist);
+        return View(Stylist.Find(id));
+    }
+
+    // @client.GetId()
 
     // [HttpPost("/stylists/{name}/{id}/update")]
     // public ActionResult UpdateFormIsh(string name, int id)

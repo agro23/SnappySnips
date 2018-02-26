@@ -48,6 +48,7 @@ For reference, here are the previous weeks' objectives:
 * Create Hair Salon database (called andy_grossberg for project) with MyPHPAdmin
 
 * Create table for stylists
+
 * Create table for clients
 
 * Test connection to database
@@ -83,7 +84,7 @@ For reference, here are the previous weeks' objectives:
 * Add Delete for individual stylists <-----
   - Test
 
-* Add Details View for stylists <-----
+* Add Details View for stylists <-----------------------------------------------------------------------------------
 - At the moment it should show NO details since there are no clients!
   - Test by HomeController calling it with and without data.
 
@@ -132,12 +133,20 @@ For reference, here are the previous weeks' objectives:
   - EXPECTED OUTPUT: None.
   - Test should pass if Client.GetAll() and the list of Client objects are the same after deletion.
 
-* Add GetClients() to Stylist  TEST THIS IN STYLIST TESTS! <--
+* Add GetClients() to Stylist
   - EXPECTED INPUT (From StylistTests.cs):
   - two different clients added to a list and the clients db, then retrieved and compared.
   - EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
 
-* Add Details View for clients
+* Add Details View for stylists using GetClients() where clients are visible. If no clients say so.
+
+* Modify stylist Update View to show Client list using GetClients() method. <-- 
+
+* Add an "Add Client" link to stylists Update View using Client.Update() with id of current stylist.
+
+* Add a "Delete Client" link to stylists Details View using Client.Delete() with id of current stylist.
+
+* Add an "Update Client" link to stylists Details View using Client.Update() with id of current stylist.
 
 * Style Views with better HTML and CSS
 
