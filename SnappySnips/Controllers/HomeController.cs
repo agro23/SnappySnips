@@ -69,6 +69,15 @@ namespace HairSalon.Controllers
             return View("Index", Stylist.GetAll());
         }
 
+// **********************************************************
+        [HttpGet("/deleteAllClients/{stylistId}")]
+        public ActionResult DeleteAllClientsFromStylist(int stylistId)
+        {
+            Stylist.DeleteAllClientsFromStylist(stylistId);
+            return View("Index", Stylist.GetAll());
+        }
+// **********************************************************
+
         [HttpGet("/clients/{stylistId}/new")]
         public ActionResult CreateClientForm(int stylistId)
         {

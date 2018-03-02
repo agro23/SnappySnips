@@ -135,6 +135,30 @@ namespace HairSalon.Models
           conn.Dispose();
     }
 
+    public static void DeleteAllClientsFromStylist(int Id)
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM clients WHERE stylist_id = @Id"; // should autincrement reset to 0 or 1?
+
+        cmd.Parameters.Add(new MySqlParameter("@Id", Id));
+        
+        try
+        {
+          cmd.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception in DeleteAllClientsFromStylist: " + ex);
+        }
+
+        conn.Close();
+        if (conn != null)
+          conn.Dispose();
+    }
+
     public void Save()
     {
         MySqlConnection conn = DB.Connection();

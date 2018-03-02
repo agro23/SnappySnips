@@ -21,17 +21,17 @@ Note: If you are unfinished with the requirements from last week, make sure to m
 * And here are the user stories that the salon owner would like you to add:
 
 * As an employee, I need to be able to delete stylists (all and single).
-* As an employee, I need to be able to delete clients (all and single).
-* As an employee, I need to be able to view clients (all and single).
+* As an employee, I need to be able to delete clients (all and single). ***************** Need Delete All Clients from Stylist A)
+* As an employee, I need to be able to view clients (all and single). ***************** Need to See Client's Specialties
 * As an employee, I need to be able to edit JUST the name of a stylist. (You can choose to allow employees to edit additional properties but it is not required.)
 * As an employee, I need to be able to edit ALL of the information for a client.
 
 **Specialty-related additions**
-* As an employee, I need to be able to add a specialty and view all specialties that have been added.
-* As an employee, I need to be able to add a specialty to a stylist.
-* As an employee, I need to be able to click on a specialty and see all of the stylists that have that specialty.
-* As an employee, I need to see the stylist's specialties on the stylist's details page.
-* As an employee, I need to be able to add a stylist to a specialty.
+* As an employee, I need to be able to add a specialty and view all specialties that have been added. ************************** 1)
+* As an employee, I need to be able to add a specialty to a stylist. *********************************** 2)
+* As an employee, I need to be able to click on a specialty and see all of the stylists that have that specialty. ****************************** 3)
+* As an employee, I need to see the stylist's specialties on the stylist's details page.  ****************************** 4)
+* As an employee, I need to be able to add a stylist to a specialty. ****************************** 5) (Does that stylist exist? Should this be a dropdown menu?)
 
 Naming Requirements
 
@@ -272,9 +272,12 @@ If you finish with time to spare, consider adding the following features:
   - EXPECTED OUTPUT: None.
   - Test should pass if Specialty.GetAll() and the list of Specialty objects are the same after deletion.
 
-
-
-
+* Add DeleteAllClients() to Stylist.
+- EXPECTED INPUT (From StylistTests.cs to Stylist.cs): "Peter Parker".
+- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Vulture", <PeterParker's stylist_ID>.
+- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Doctor Octopus" <PeterParker's stylist_ID>.
+- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Sandman" <PeterParker's stylist_ID>.
+- EXPECTED OUTPUT: None.
 
 
 * Create a NAV footer
