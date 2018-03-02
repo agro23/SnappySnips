@@ -226,55 +226,51 @@ If you finish with time to spare, consider adding the following features:
 <!-- * Test connection to database -->
 
 * Create Specialty object and test GetName()
-  - EXPECTED TEST INPUT: "Han Solo, 1"
-  - EXPECTED OUTPUT: (to ClientTests) "Han Solo"
+  - EXPECTED TEST INPUT: "Permanent"
+  - EXPECTED OUTPUT: (to SpecialtyTests) "Permanent"
   - Test should pass
 
 * Add GetAll() to Specialty.cs
   - Test for nothing in db
-  - EXPECTED INPUT (From ClientTests.cs): GetAll().Count at 0
+  - EXPECTED INPUT (From SpecialtyTests.cs): GetAll().Count at 0
   - EXPECTED OUTPUT: None. But test should pass if the db is empty.
 
 * Test Equals override in Specialty.cs by creating two Specialty objects and comparing them.
-  - EXPECTED INPUT (From SpecialtyTests.cs): "Han Solo, 1", "Han Solo, 1".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Permanent", "Permanent".
   - EXPECTED OUTPUT: None.
   - Test should pass
 
-* Add Save() to Client.cs
-  - Test by creating Client and saving to the db, and to a list, then GetAll() and compare them.
-  - EXPECTED INPUT (From ClientTests.cs): "Chewbacca, 1".
+* Add Save() to Specialty.cs
+  - Test by creating Specialty and saving to the db, and to a list, then GetAll() and compare them.
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut".
   - EXPECTED OUTPUT: None.
 
-* Add DeleteAll() to Client.cs
-  - Test by filling the database with some clients, and list with some clients, then run DeleteAll(). If Client.GetAll() and list are NOT equal it works.
-  - EXPECTED INPUT (From ClientTests.cs): "Iron Man, 1".
-  - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1".
-  - EXPECTED INPUT (From ClientTests.cs): "Thor, 1".
+* Add DeleteAll() to Specialty.cs
+  - Test by filling the database with some specialties, and list with some specialties, then run DeleteAll(). If Specialty.GetAll() and list are NOT equal it works.
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Permanent".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Dye Job".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Style".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Braiding".
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Weaves".
   - EXPECTED OUTPUT: None.
 
-* Add Find() to Client.cs
-  - Test by filling the database with some clients, and list with some clients, then run Find(). If Client.Find(1).GetName() and list[0] are equal it works.
-  - EXPECTED INPUT (From ClientTests.cs): "Iron Man, 1".
-  - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1".
-  - EXPECTED INPUT (From ClientTests.cs): "Thor, 1".
+* Add Find() to Specialty.cs
+  - Test by filling the database with a specialty, and a list with a specialty, then run Find(). If Specialty.Find(1).GetName() and list[0] are equal it works.
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut".
+  - EXPECTED OUTPUT: None.
 
-* Add Update() to Client.cs
-  - Test if saved Client.GetName() is the same as Client.GetName() after Update()
-  - EXPECTED INPUT (From ClientTests.cs): "Bruce Banner, 1"
-  - EXPECTED INPUT (From ClientTests.cs): "Hulk, 1"
+* Add Update() to Specialty.cs
+  - Test if saved Specialty.GetName() is the same as Specialty.GetName() after Update()
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut"
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Weaves"
   - EXPECTED OUTPUT: None
 
-* Add Delete() for individual clients to Client.cs
-  - EXPECTED INPUT (From ClientTests.cs): five new Client objects with stylist_id 1 ("Iron Man", "Hulk", "Thor", "Captain America", "Black Widow")
+* Add Delete() for individual clients to Specialty.cs
+  - EXPECTED INPUT (From SpecialtyTests.cs): six new Specialty objects ("Hair Cut", "Permanent", "Dye Job", "Style", "Braiding", "Weaves")
   - Data is written to the db and to a list; an item is removed from the list and from the corresponding record of the db, then they are compared.
   - EXPECTED OUTPUT: None.
-  - Test should pass if Client.GetAll() and the list of Client objects are the same after deletion.
-
-* Add GetClients() to Stylist
-  - EXPECTED INPUT (From StylistTests.cs):
-  - two different clients added to a list and the clients db, then retrieved and compared.
-  - EXPECTED OUTPUT: None. But test should pass if the list matches the output list from the Stylist.GetClients() method.
-
+  - Test should pass if Specialty.GetAll() and the list of Specialty objects are the same after deletion.
 
 
 

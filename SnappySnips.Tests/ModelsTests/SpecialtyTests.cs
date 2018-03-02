@@ -57,10 +57,10 @@ namespace HairSalon.Models.Tests
         }
 
         [TestMethod]
-        public void Save_SavesToDatabase_ItemList()
+        public void Save_SavesToDatabase_SpecialtyList()
         {
             //Arrange
-            Specialty testSpecialty = new Specialty("Kermit the Frog");
+            Specialty testSpecialty = new Specialty("Hair Cut");
 
             //Act
             testSpecialty.Save();
@@ -76,7 +76,7 @@ namespace HairSalon.Models.Tests
         public void Save_DbAssignsIdToSpecialty_Id()
         {
            //Arrange
-           Specialty testSpecialty = new Specialty("Sister Mary Elephant");
+           Specialty testSpecialty = new Specialty("Hair Cut");
            testSpecialty.Save();
 
            //Act
@@ -117,7 +117,7 @@ namespace HairSalon.Models.Tests
         public void Find_FindsItemInDatabase_Item()
         {
             //Arrange
-            Specialty testSpecialty = new Specialty("Mr. Potatohead");
+            Specialty testSpecialty = new Specialty("Hair Cut");
             testSpecialty.Save();
 
             //Act
@@ -130,21 +130,21 @@ namespace HairSalon.Models.Tests
         }
 
         [TestMethod]
-        public void DeleteAll_SpecialtysFromDatabase_True()
+        public void DeleteAll_SpecialtieFromDatabase_True()
         {
             //Arrange
             List<Specialty> testList = new List<Specialty>();
             Specialty testSpecialty;
 
-            testSpecialty = new Specialty("Han Solo");
+            testSpecialty = new Specialty("Hair Cut");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("Chewbacca");
+            testSpecialty = new Specialty("Permanent");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("Princess Leia");
+            testSpecialty = new Specialty("Dye Job");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
@@ -162,23 +162,27 @@ namespace HairSalon.Models.Tests
             List<Specialty> testList = new List<Specialty>();
             Specialty testSpecialty;
 
-            testSpecialty = new Specialty("Buffy the Vampire Slayer");
+            testSpecialty = new Specialty("Hair Cut");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("Terminator T-1000");
+            testSpecialty = new Specialty("Permanent");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("Fred Flintstone");
+            testSpecialty = new Specialty("Dye Job");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("Terminator T-800");
+            testSpecialty = new Specialty("Style");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
-            testSpecialty = new Specialty("George Jetson");
+            testSpecialty = new Specialty("Braiding");
+            testSpecialty.Save();
+            testList.Add(testSpecialty);
+
+            testSpecialty = new Specialty("Weaves");
             testSpecialty.Save();
             testList.Add(testSpecialty);
 
@@ -195,12 +199,12 @@ namespace HairSalon.Models.Tests
         {
             //Arrange
             Specialty.DeleteAll(); // clear the db first!
-            Specialty testSpecialty = new Specialty("Princess Leia");
+            Specialty testSpecialty = new Specialty("Hair Cut");
             testSpecialty.Save();
             string x = testSpecialty.GetName();
 
             //Act
-            testSpecialty.Update("General Organa", testSpecialty.GetId());
+            testSpecialty.Update("Weaves", testSpecialty.GetId());
             string x1 = testSpecialty.GetName();
 
             //Assert

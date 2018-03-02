@@ -80,39 +80,39 @@ namespace HairSalon.Models
         return allSpecialties;
     }
 
-    public List<Client> GetClients()
-    {
-      // List<Client> allSpecialtyClients = new List<Client> {};
-      // return allSpecialtyClients;
-
-      List<Client> allSpecialtyClients = new List<Client> {};
-      MySqlConnection conn = DB.Connection();
-      conn.Open();
-      var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM clients WHERE specialty_id = @specialty_id;";
-
-      MySqlParameter specialtyId = new MySqlParameter();
-      specialtyId.ParameterName = "@specialty_id";
-      specialtyId.Value = this._id;
-      cmd.Parameters.Add(specialtyId);
-
-
-      var rdr = cmd.ExecuteReader() as MySqlDataReader;
-      while(rdr.Read())
-      {
-        int clientId = rdr.GetInt32(0);
-        string clientName = rdr.GetString(1);
-        int clientSpecialtyId = rdr.GetInt32(2);
-        Client newClient = new Client(clientName, clientSpecialtyId, clientId);
-        allSpecialtyClients.Add(newClient);
-      }
-      conn.Close();
-      if (conn != null)
-      {
-          conn.Dispose();
-      }
-        return allSpecialtyClients;
-    }
+    // public List<Client> GetClients()
+    // {
+    //   // List<Client> allSpecialtyClients = new List<Client> {};
+    //   // return allSpecialtyClients;
+    //
+    //   List<Client> allSpecialtyClients = new List<Client> {};
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //   var cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = @"SELECT * FROM clients WHERE specialty_id = @specialty_id;";
+    //
+    //   MySqlParameter specialtyId = new MySqlParameter();
+    //   specialtyId.ParameterName = "@specialty_id";
+    //   specialtyId.Value = this._id;
+    //   cmd.Parameters.Add(specialtyId);
+    //
+    //
+    //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
+    //   while(rdr.Read())
+    //   {
+    //     int clientId = rdr.GetInt32(0);
+    //     string clientName = rdr.GetString(1);
+    //     int clientSpecialtyId = rdr.GetInt32(2);
+    //     Client newClient = new Client(clientName, clientSpecialtyId, clientId);
+    //     allSpecialtyClients.Add(newClient);
+    //   }
+    //   conn.Close();
+    //   if (conn != null)
+    //   {
+    //       conn.Dispose();
+    //   }
+    //     return allSpecialtyClients;
+    // }
 
     public static void DeleteAll()
     {
@@ -120,7 +120,7 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM specialties; DELETE FROM clients; ALTER TABLE specialties AUTO_INCREMENT = 1; ALTER TABLE clients AUTO_INCREMENT = 1;"; // should autincrement reset to 0 or 1?
+        cmd.CommandText = @"DELETE FROM specialties; DELETE FROM skills; ALTER TABLE specialties AUTO_INCREMENT = 1;"; // should autincrement reset to 0 or 1?
         try
         {
           cmd.ExecuteNonQuery();
@@ -202,7 +202,7 @@ namespace HairSalon.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"UPDATE specialties SET name = @newName WHERE id = @searchId;"; // Really? Where am I getting ID from???
+        cmd.CommandText = @"UPDATE specialties SET name = @newName WHERE id = @searchId;";
 
         MySqlParameter searchId = new MySqlParameter();
         searchId.ParameterName = "@searchId";
@@ -224,7 +224,7 @@ namespace HairSalon.Models
         }
     }
 
-    public static void Delete(int Id)
+    public static void Delete (int Id)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
