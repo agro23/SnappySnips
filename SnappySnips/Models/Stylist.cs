@@ -192,7 +192,7 @@ namespace HairSalon.Models
         Specialty someSpecialty = new Specialty("Curling Hair");
         allStylistSpecialties.Add(someSpecialty);
         Console.WriteLine("the list in stylist is this many: " + allStylistSpecialties.Count);
-        
+
         return allStylistSpecialties;
     }
 
