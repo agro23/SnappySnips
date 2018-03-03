@@ -279,6 +279,28 @@ If you finish with time to spare, consider adding the following features:
 - EXPECTED INPUT (From StylistTests.cs to Client.cs): "Sandman" <PeterParker's stylist_ID>.
 - EXPECTED OUTPUT: None.
 
+* Add GetSpecialties() to Stylist with Empty list and test it in the stylist Details View
+- EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
+- EXPECTED OUTPUT: Empty List.
+
+* Add AddSpecialty
+
+* GetSpecialties() uses data from JOIN table skills??????
+- EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
+- EXPECTED OUTPUT: Empty List.
+
+* Add to Specialties via Stylist Update()
+  - Test
+  Read from Join table
+  test with data
+
+* Add Save() to Specialty.cs
+  - Test by creating Specialty and saving to the db, and to a list, then GetAll() and compare them.
+  - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut".
+  - EXPECTED OUTPUT: None.
+
+
+
 
 * Create a NAV footer
 

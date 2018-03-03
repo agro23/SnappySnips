@@ -100,6 +100,31 @@ namespace HairSalon.Models
             }
             return allClients;
         }
+//*********************************************************************************
+        public static List<Specialty> GetSpecialties()
+        {
+            List<Specialty> allSpecialties = new List<Specialty> {};
+            // MySqlConnection conn = DB.Connection();
+            // conn.Open();
+            // var cmd = conn.CreateCommand() as MySqlCommand;
+            // cmd.CommandText = @"SELECT * FROM clients;";
+            // var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            // while(rdr.Read())
+            // {
+            //     int clientId = rdr.GetInt32(0);
+            //     string clientName = rdr.GetString(1);
+            //     int clientStylistId = rdr.GetInt32(2);
+            //     Client newClient = new Client(clientName, clientStylistId, clientId);
+            //     allClients.Add(newClient);
+            // }
+            // conn.Close();
+            // if (conn != null)
+            // {
+            //     conn.Dispose();
+            // }
+            return allSpecialties;
+        }
+//*********************************************************************************
 
         public static Client Find(int id)
         {

@@ -69,14 +69,12 @@ namespace HairSalon.Controllers
             return View("Index", Stylist.GetAll());
         }
 
-// **********************************************************
         [HttpGet("/deleteAllClients/{stylistId}")]
         public ActionResult DeleteAllClientsFromStylist(int stylistId)
         {
             Stylist.DeleteAllClientsFromStylist(stylistId);
             return View("Index", Stylist.GetAll());
         }
-// **********************************************************
 
         [HttpGet("/clients/{stylistId}/new")]
         public ActionResult CreateClientForm(int stylistId)
@@ -119,6 +117,58 @@ namespace HairSalon.Controllers
             Client thisClient = Client.Find(id);
             thisClient.Update(Request.Form["new-name"], thisClient.GetStylistId(), id);
             return View("Details", Stylist.Find(thisClient.GetStylistId()));
+        }
+
+        [HttpGet("/specialties/new")]
+        public ActionResult CreateSpecialtyForm()
+        // was CreateForm()
+        {
+            return View();
+        }
+
+        [HttpPost("/specialties")]
+        public ActionResult CreateSpecialty()
+        //Was Create()
+        {
+          Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
+          newSpecialty.Save();
+          List<Specialty> allSpecialties = Specialty.GetAll();
+          // return View("Index", allSpecialties);
+          // return View("Index"); // maybe send it to a list of all specialties
+          return RedirectToAction("Index");
+
+        }
+
+        [HttpGet("/specialties/{stylistId}/new")]
+        public ActionResult CreateStylistSpecialtyForm(int stylistId)
+        {
+            return View(Stylist.Find(stylistId));
+        }
+
+        [HttpPost("/specialties/{stylistId}")]
+        public ActionResult CreateStylistSpecialty(int stylistId)
+        {
+            Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
+            newSpecialty.Save();
+            return View("Details", Stylist.Find(stylistId));
+        }
+
+
+
+
+
+
+
+        [HttpGet("/specialties/{id}/update")]
+        public ActionResult UpdateSpecialtyForm(int id)
+        {
+            return View("Update", Specialty.Find(id));
+        }
+
+        [HttpGet("/specialties/{id}/details")]
+        public ActionResult SpecialtyDetails(int id)
+        {
+            return View(Specialty.Find(id));
         }
 
     }

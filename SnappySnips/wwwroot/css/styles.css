@@ -8,7 +8,7 @@ body {
   background: linear-gradient(silver, white);
 }
 
-h4{
+h4 {
   margin-left: 1em;
 }
 
@@ -24,4 +24,9 @@ h4{
   text-align: center;
   background color: chartreuse;
 
+}
+
+.stylist {
+  color: purple;
+  font-size: 1.5em;
 }

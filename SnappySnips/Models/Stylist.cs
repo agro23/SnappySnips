@@ -114,6 +114,113 @@ namespace HairSalon.Models
         return allStylistClients;
     }
 
+    public List<Specialty> GetSpecialties()
+    {
+        // List<Specialty> allStylistSpecialties = new List<Specialty> {};
+        // return allStylistSpecialties; // Return an empty list for now
+
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+
+
+        // cmd.CommandText = @"SELECT specialties.* FROM stylists
+        //   JOIN skills ON (stylists.id = skills.stylist_id)
+        //   JOIN specialties ON (skills.specialty_id = specialties.id)
+        //   WHERE stylists.id = @StylistId;"; // nope ******
+
+          // cmd.CommandText = @"SELECT items.* FROM categories
+          //                 JOIN categories_items ON (categories.id = categories_items.category_id)
+          //                 JOIN items ON (categories_items.item_id = items.id)
+          //                 WHERE categories.id = @CategoryId;";
+
+        // cmd.CommandText = @"SELECT specialties.* FROM stylists
+        //   JOIN skills ON (stylists.id = skills.stylist_id)
+        //   JOIN specialties ON (skills.specialty_id = specialties.id)
+        //   WHERE stylists.id = @StylistId;"; // NOPE ******
+
+        // cmd.CommandText = @"SELECT * FROM specialties
+        //   JOIN skills ON (specialties.id = skills.specialty_id)
+        //   JOIN stylists ON (stylists.id = stylist_id)
+        //   WHERE specialties.id = @StylistId;"; // NOPE*****
+
+
+
+
+        //
+        // cmd.CommandText =  @"SELECT specialties.* FROM stylists
+        //         JOIN skills ON (stylists.id = skills.stylist_id)
+        //         JOIN items ON (categories_items.item_id = items.id)
+        //         WHERE categories.id = @CategoryId;";
+
+        cmd.CommandText = @"SELECT * FROM stylists
+          JOIN skills ON (stylists.id = skills.stylist_id)
+          JOIN specialties ON (skills.id = specialties.id)
+          WHERE stylists.id = @StylistId;";
+
+
+          // cmd.CommandText = @"SELECT items.* FROM rooms
+          //   JOIN contents ON (rooms.id = contents.rooms)
+          //   JOIN items ON (contents.items = items.id)
+          //   WHERE rooms.id = @RoomId;";
+
+        MySqlParameter stylistId = new MySqlParameter();
+        stylistId.ParameterName = "@StylistId";
+        stylistId.Value = this._id;
+        cmd.Parameters.Add(stylistId);
+
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        List<Specialty> allStylistSpecialties = new List<Specialty>{};
+
+        while(rdr.Read())
+        {
+          int skill_Id = rdr.GetInt32(0);
+          int stylist_Id = rdr.GetInt32(1);
+          int specialty_Id = rdr.GetInt32(2);
+          Specialty newSpecialty = new Specialty(Specialty.Find(specialty_Id).GetName());
+
+          allStylistSpecialties.Add(newSpecialty);
+          Console.WriteLine(newSpecialty.GetName());
+        }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+
+        //Just pass somet crap back!
+        Specialty someSpecialty = new Specialty("Curling Hair");
+        allStylistSpecialties.Add(someSpecialty);
+        Console.WriteLine("the list in stylist is this many: " + allStylistSpecialties.Count);
+        
+        return allStylistSpecialties;
+    }
+
+    public void AddSpecialtyToStylist(Specialty newSpecialty)
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO skills (stylist_id, specialty_id) VALUES (@StylistId, @SpecialtyId);";
+
+        MySqlParameter stylists = new MySqlParameter();
+        stylists.ParameterName = "@StylistId";
+        stylists.Value = _id;
+        cmd.Parameters.Add(stylists);
+
+        MySqlParameter specialties = new MySqlParameter();
+        specialties.ParameterName = "@SpecialtyId";
+        specialties.Value = newSpecialty.GetId();
+        cmd.Parameters.Add(specialties);
+
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+    }
+
     public static void DeleteAll()
     {
         MySqlConnection conn = DB.Connection();
@@ -144,7 +251,7 @@ namespace HairSalon.Models
         cmd.CommandText = @"DELETE FROM clients WHERE stylist_id = @Id"; // should autincrement reset to 0 or 1?
 
         cmd.Parameters.Add(new MySqlParameter("@Id", Id));
-        
+
         try
         {
           cmd.ExecuteNonQuery();

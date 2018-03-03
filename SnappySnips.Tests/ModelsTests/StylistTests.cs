@@ -269,5 +269,20 @@ namespace HairSalon.Models.Tests
             CollectionAssert.AreNotEqual(testList, testStylist.GetClients());
         }
 
+        // [TestMethod]
+        // public void ReturnsAListFrom_GetSpecialties_True()
+        // {
+        //     //Arrange
+        //     Stylist testStylist = new Stylist("Boba Fett"); // make a stylist
+        //     testStylist.Save();
+        //
+        //     //Act
+        //     List <Specialty> testSpecialtyList = new List<Specialty> {}; // make an empty list
+        //
+        //     //Assert
+        //     CollectionAssert.AreEqual(testSpecialtyList, testStylist.GetSpecialties());
+        // } // restore after the other tests! **********
+
+
     }
 }

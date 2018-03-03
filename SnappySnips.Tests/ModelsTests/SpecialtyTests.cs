@@ -212,6 +212,24 @@ namespace HairSalon.Models.Tests
         }
 
 
+        [TestMethod]
+        public void Add_SpecialtyToStylistInSkills_Void()
+        {
+            //Arrange
+            List<Specialty> testSpecialty = new List<Specialty>();
+            Specialty newSpecialty = new Specialty("Curling Hair");
+            Stylist rhonda = new Stylist("Rhonda");
+
+            //Act
+            testSpecialty.Add(newSpecialty);
+            rhonda.AddSpecialtyToStylist(newSpecialty);
+
+            Console.WriteLine("testSpecialty.Count is " + testSpecialty.Count);
+
+            //Assert
+            CollectionAssert.AreEqual(testSpecialty, rhonda.GetSpecialties());
+
+        }
         // [TestMethod]
         // public void Add_ClientsToSpecialty_Void()
         // // ***************************************************

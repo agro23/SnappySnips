@@ -10,7 +10,37 @@
   </div>
 
   <div class = "well row">
-    <h4><a href="/clients/@Model.GetId()/new">ADD CLIENT</a> | <a href="/deleteAllClients/@Model.GetId()">DELETE ALL CLIENTS</a> | <a href="/">BACK</a></h4>
+    <h4><a href="/clients/@Model.GetId()/new">ADD CLIENT</a> | <a href="/specialties/@Model.GetId()/new">ADD SPECIALTY</a> | <a href="/deleteAllClients/@Model.GetId()">DELETE ALL CLIENTS</a> | <a href="/">BACK</a></h4>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>SPECIALTY</h3>
+      </div>
+      <div class="col-lg-4">
+        <h3>ACTION</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      @if(@Model.GetSpecialties().Count > 0)
+      {
+          @foreach (var specialty in @Model.GetSpecialties())
+          {
+            <div class="col-lg-6">
+              <h4><a href="/specialties/@Model.GetId()/SpecialtyDetails">@specialty.GetName()</a></h4>
+            </div>
+            <div class="col-lg-4">
+              <h4><a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+            </div>
+          }
+      }
+      else
+      {
+        <h4>@Model.GetName() has no specialties right now.</h4>
+      }
+    </div>
   </div>
 
   <div class="well">
