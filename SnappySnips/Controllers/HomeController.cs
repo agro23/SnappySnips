@@ -11,7 +11,7 @@ namespace HairSalon.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
-          return View("Index", Stylist.GetAll());
+            return View("Index", Stylist.GetAll());
         }
 
         [HttpGet("/stylists/new")]
@@ -155,8 +155,11 @@ namespace HairSalon.Controllers
         }
 
 
-
-
+        [HttpGet("/specialties/viewAll")]
+        public ActionResult SpecialtiesIndex()
+        {
+            return View(Specialty.GetAll());
+        }
 
 
 

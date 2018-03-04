@@ -80,6 +80,30 @@ namespace HairSalon.Models
         return allStylists;
     }
 
+    public static List<Specialty> GetAllSpecialties()
+    // this saves me from a lot of dictionary declarations in HomeController ************************************
+    {
+        List<Specialty> allSpecialties = new List<Specialty> {};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM specialties;";
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+          int specialtyId = rdr.GetInt32(0);
+          string specialtyName = rdr.GetString(1);
+          Specialty newSpecialty = new Specialty(specialtyName, specialtyId);
+          allSpecialties.Add(newSpecialty);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+        return allSpecialties;
+    }
+
     public List<Client> GetClients()
     {
       // List<Client> allStylistClients = new List<Client> {};
@@ -114,42 +138,38 @@ namespace HairSalon.Models
         return allStylistClients;
     }
 
-// *************************************************************************************
-public List<Specialty> GetSkills(int id)
-// This is a temporary test
-{
-    List<Specialty> allSpecialties = new List<Specialty> {};
-
-    MySqlConnection conn = DB.Connection();
-    conn.Open();
-    MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    cmd.CommandText = @"SELECT * FROM skills;";
-    MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-    while(rdr.Read())
-    {
-      int skillId = rdr.GetInt32(0);
-      int stylistId = rdr.GetInt32(1);
-      int specialtyId = rdr.GetInt32(2);
-      // Console.WriteLine("Stylist at stylistId " + stylistId + " is " + Stylist.Find(stylistId).GetName());
-      // Console.WriteLine("Specialty at specialtyId " + specialtyId + " is " + Specialty.Find(specialtyId).GetName());
-
-      // Specialty newSpecialty = new Specialty(specialtyId, specialtyId);
-      if (stylistId == id)
-      {
-          allSpecialties.Add(Specialty.Find(specialtyId));
-          // Console.WriteLine("I did pass an id in here after all. ID: " + id);
-      }
-
-    }
-
-    conn.Close();
-    if (conn != null)
-    {
-        conn.Dispose();
-    }
-    // Console.WriteLine("allSpecialties is how long? " + allSpecialties.Count);
-    return allSpecialties;
-}
+// // *************************************************************************************
+// public List<Specialty> GetSkills(int id)
+// {
+//     List<Specialty> allSpecialties = new List<Specialty> {};
+//
+//     MySqlConnection conn = DB.Connection();
+//     conn.Open();
+//     MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+//     cmd.CommandText = @"SELECT * FROM skills;";
+//     MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+//     while(rdr.Read())
+//     {
+//       int skillId = rdr.GetInt32(0);
+//       int stylistId = rdr.GetInt32(1);
+//       int specialtyId = rdr.GetInt32(2);
+//
+//       if (stylistId == id)
+//       {
+//           allSpecialties.Add(Specialty.Find(specialtyId));
+//           // Console.WriteLine("I did pass an id in here after all. ID: " + id);
+//       }
+//
+//     }
+//
+//     conn.Close();
+//     if (conn != null)
+//     {
+//         conn.Dispose();
+//     }
+//     // Console.WriteLine("allSpecialties is how long? " + allSpecialties.Count);
+//     return allSpecialties;
+// }
 
 
     public List<Specialty> GetSpecialties()
@@ -299,25 +319,19 @@ public List<Specialty> GetSkills(int id)
 
     public void AddSpecialtyToStylist(Specialty newSpecialty)
     {
-      // ************************************************************************
-      Console.WriteLine("At least I got into AddSpecialtyToStylist!");
-      Console.WriteLine("And newSpecialty is: " + newSpecialty.GetName());
-          MySqlConnection conn = DB.Connection();
+        MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"INSERT INTO skills (stylist_id, specialty_id) VALUES (@StylistId, @SpecialtyId);";
 
         MySqlParameter stylists = new MySqlParameter();
         stylists.ParameterName = "@StylistId";
-        stylists.Value = _id; // should it be this._id?
-        Console.WriteLine("_id is: " + _id);
-        // stylists.Value = 1;
+        stylists.Value = _id;
         cmd.Parameters.Add(stylists);
 
         MySqlParameter specialties = new MySqlParameter();
         specialties.ParameterName = "@SpecialtyId";
         specialties.Value = newSpecialty.GetId();
-        Console.WriteLine("newSpecialty's id is: " + newSpecialty.GetId());
 
         // specialties.Value = 1;
         cmd.Parameters.Add(specialties);
