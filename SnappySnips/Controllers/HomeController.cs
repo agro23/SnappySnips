@@ -198,5 +198,45 @@ namespace HairSalon.Controllers
             return View("SpecialtyIndex", Specialty.GetAll());
         }
 
+        [HttpGet("/specialties/{id}/new/stylist")]
+        public ActionResult AddSpecialtyToStylist(int id)
+        {
+            List<object> model = new List<object>{};
+            List<Stylist> tempStylist = new List<Stylist>{};
+            tempStylist.Add(Stylist.Find(id));
+            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
+            model.Add(tempStylist); // was id
+            List<Specialty> specialties = new List<Specialty>{};
+            specialties = Specialty.GetAll();
+            model.Add(specialties);
+            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
+            return View("UpdateStylistSpecialty", model);
+        }
+
+        [HttpGet("/stylists/{specialtyId}/{stylistId}/add")]
+        public ActionResult AddToStylist(int specialtyId, int stylistId)
+        {
+            // add specialty x and stylist x1 to skills via JOIN
+            //How do I know what stylist it is????
+            Stylist tempStylist = Stylist.Find(stylistId);
+            tempStylist.AddSpecialtyToStylist(Specialty.Find(specialtyId));
+            return View ("Details", tempStylist);
+        }
+
+        // [HttpGet("/specialties/{stylistId}/new/stylist")]
+        // public ActionResult CreateStylistSpecialtyForm(int stylistId)
+        // {
+        //     return View(Stylist.Find(stylistId));
+        // }
+        //
+        // [HttpPost("/specialties/{stylistId}/stylist")]
+        // public ActionResult CreateStylistSpecialty(int stylistId)
+        // {
+        //     Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
+        //     Console.WriteLine("new Specialty is " + newSpecialty.GetName());
+        //     newSpecialty.Save();
+        //     return View("Details", Stylist.Find(stylistId));
+        // }
+
     }
 }
