@@ -12,8 +12,8 @@ namespace HairSalon.Models.Tests
         public SpecialtyTests()
         {
             Console.WriteLine("Change the port number and database name to whatever you need it to be...");
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=andy_grossberg_test;";
-            // DBConfiguration.ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg_test;";
+            // DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=andy_grossberg_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg_test;";
             //Allow User Variables=True
         }
 
@@ -217,19 +217,119 @@ namespace HairSalon.Models.Tests
         {
             //Arrange
             List<Specialty> testSpecialty = new List<Specialty>();
-            Specialty newSpecialty = new Specialty("Curling Hair");
+            List<Specialty> tempSpecialty = new List<Specialty>();
+
+            Specialty newSpecialty = new Specialty("Manicure");
+            newSpecialty.Save();
+            testSpecialty.Add(newSpecialty);
+            Specialty newSpecialty1 = new Specialty("Pedicure");
+            newSpecialty1.Save();
+            testSpecialty.Add(newSpecialty1);
+            Specialty newSpecialty2 = new Specialty("Nail Art");
+            newSpecialty2.Save();
+            testSpecialty.Add(newSpecialty2);
+
             Stylist rhonda = new Stylist("Rhonda");
+            rhonda.Save();
+            Stylist rita = new Stylist("Rita");
+            rita.Save();
+            Stylist rhoda = new Stylist("Rhoda");
+            rhoda.Save();
+
+            //Rhonda, Rita, and Rhoda can Manicure
+            rhonda.AddSpecialtyToStylist(newSpecialty);
+            rita.AddSpecialtyToStylist(newSpecialty);
+            rhoda.AddSpecialtyToStylist(newSpecialty);
+            tempSpecialty.Add(newSpecialty);
+
+            //Rhonda and Rita can Pedicure
+            rhonda.AddSpecialtyToStylist(newSpecialty1);
+            rita.AddSpecialtyToStylist(newSpecialty1);
+            tempSpecialty.Add(newSpecialty1);
+
+            //Rhonda and Rhoda can do Nail Art
+            rhonda.AddSpecialtyToStylist(newSpecialty2);
+            rhoda.AddSpecialtyToStylist(newSpecialty2);
+            tempSpecialty.Add(newSpecialty2);
 
             //Act
-            testSpecialty.Add(newSpecialty);
-            rhonda.AddSpecialtyToStylist(newSpecialty);
 
-            Console.WriteLine("testSpecialty.Count is " + testSpecialty.Count);
+            // List<Specialty> r1 = new List<Specialty>{};
+            // Console.WriteLine("Rhonda can: ");
+            // r1 = rhonda.GetSkills(1);
+            // Console.WriteLine("r1 Count is: " + r1.Count);
+            // for (var i1=0; i1< r1.Count; i1++)
+            // {
+            //     Console.WriteLine(r1[i1].GetName());
+            // }
+            //
+            // List<Specialty> r2 = new List<Specialty>{};
+            // Console.WriteLine("Rita can: ");
+            // r2 = rita.GetSkills(2);
+            // for (var i2=0; i2< r2.Count; i2++)
+            // {
+            //     Console.WriteLine(r2[i2].GetName());
+            // }
+            //
+            // List<Specialty> r3 = new List<Specialty>{};
+            // Console.WriteLine("Rhoda can: ");
+            // r3 = rhoda.GetSkills(3);
+            // for (var i3=0; i3< r3.Count; i3++)
+            // {
+            //     Console.WriteLine(r3[i3].GetName());
+            // }
+
+            // testSpecialty.Add(newSpecialty);
+            // tempSpecialty=Specialty.GetAll();
+
+            Console.WriteLine("Specialty.Count is " + Specialty.GetAll().Count);
+            Console.WriteLine("TestSpecialty.Count is " + testSpecialty.Count);
+            Console.WriteLine("TempSpecialty.Count is " + tempSpecialty.Count);
+
+            // for (var i=0; i< Specialty.GetAll().Count; i ++) {
+            //     Console.WriteLine("Specialty name: " + tempSpecialty[i].GetName());
+            // }
+
+            // rhonda.AddSpecialtyToStylist(newSpecialty);
+            Console.WriteLine("Stylist 1 is :" + Stylist.Find(1).GetName());
+            Console.WriteLine("Stylist.Count is " + Stylist.GetAll().Count);
+            Console.WriteLine("GetSpecialties.Count is " + rhonda.GetSpecialties().Count);
+            // Console.WriteLine("testSpecialty.Count is " + testSpecialty.Count);
+            // Console.WriteLine("tempSpecialty.Count is " + tempSpecialty.Count);
 
             //Assert
-            CollectionAssert.AreEqual(testSpecialty, rhonda.GetSpecialties());
+            // CollectionAssert.AreEqual(tempListOfSomeSort, rhonda.GetSpecialties());
+            // CollectionAssert.AreEqual(tempSpecialty, rhonda.GetSpecialties());
+
+            for (int s=0; s < tempSpecialty.Count; s++)
+            {
+                Console.WriteLine(tempSpecialty[s].GetName());
+            }
+
+            for (int s1=0; s1 < testSpecialty.Count; s1++)
+            {
+                Console.WriteLine(testSpecialty[s1].GetName());
+            }
+
+            List<Specialty> rhondaList = new List<Specialty>();
+            rhondaList=rhonda.GetSpecialties();
+
+            for (int s2=0; s2 < rhondaList.Count; s2++)
+            {
+                Console.WriteLine(rhondaList[s2].GetName());
+            }
+
+            for (int s3=0; s3 < rhondaList.Count; s3++)
+            {
+                Console.WriteLine("rhondaList[s3].GetName() = testSpecialty[s3].GetName() " + (rhondaList[s3].GetName().Equals(testSpecialty[s3].GetName())));
+            }
+            Console.WriteLine("rhondaList.Count = testSpecialty.Count " + (rhondaList.Count == testSpecialty.Count));
+            // Assert.AreEqual(tempSpecialty, rhonda.GetSpecialties());
+            Assert.AreEqual(tempSpecialty.Count, rhondaList.Count);
+
 
         }
+
         // [TestMethod]
         // public void Add_ClientsToSpecialty_Void()
         // // ***************************************************

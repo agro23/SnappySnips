@@ -26,6 +26,7 @@
     <div class="row">
       @if(@Model.GetSpecialties().Count > 0)
       {
+        Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties().");
           @foreach (var specialty in @Model.GetSpecialties())
           {
             <div class="col-lg-6">

@@ -12,8 +12,8 @@ namespace HairSalon.Models.Tests
         public StylistTests()
         {
             Console.WriteLine("Change the port number and database name to whatever you need it to be...");
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=andy_grossberg_test;";
-            // DBConfiguration.ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg_test;";
+            // DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=andy_grossberg_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=Qsw7FaaOzOyVqz2m;port=8889;database=andy_grossberg_test;";
             //Allow User Variables=True
         }
 
@@ -269,19 +269,23 @@ namespace HairSalon.Models.Tests
             CollectionAssert.AreNotEqual(testList, testStylist.GetClients());
         }
 
-        // [TestMethod]
-        // public void ReturnsAListFrom_GetSpecialties_True()
-        // {
-        //     //Arrange
-        //     Stylist testStylist = new Stylist("Boba Fett"); // make a stylist
-        //     testStylist.Save();
-        //
-        //     //Act
-        //     List <Specialty> testSpecialtyList = new List<Specialty> {}; // make an empty list
-        //
-        //     //Assert
-        //     CollectionAssert.AreEqual(testSpecialtyList, testStylist.GetSpecialties());
-        // } // restore after the other tests! **********
+        [TestMethod]
+        public void ReturnsAListFrom_GetSpecialties_True()
+        // WHAT AM I TESTING HERE? TO SEE IF ANY LIST COMES BACK AT ALL? ASSERT TYPEOF?
+        {
+            //Arrange
+            Stylist testStylist = new Stylist("Boba Fett"); // make a stylist
+            testStylist.Save();
+            Specialty testSpecialty = new Specialty("Falling into Sarlaccs"); // make a stylist
+            testSpecialty.Save();
+
+            //Act
+            List <Specialty> testSpecialtyList = new List<Specialty> {}; // make an empty list
+
+            //Assert
+            // CollectionAssert.AreEqual(testSpecialtyList, testStylist.GetSpecialties());
+            Assert.IsInstanceOfType(testStylist.GetSpecialties(), typeof(List<Specialty>));
+        } // restore after the other tests! **********
 
 
     }

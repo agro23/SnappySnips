@@ -149,6 +149,7 @@ namespace HairSalon.Controllers
         public ActionResult CreateStylistSpecialty(int stylistId)
         {
             Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
+            Console.WriteLine("new Specialty is " + newSpecialty.GetName());
             newSpecialty.Save();
             return View("Details", Stylist.Find(stylistId));
         }
@@ -162,13 +163,13 @@ namespace HairSalon.Controllers
         [HttpGet("/specialties/{id}/update")]
         public ActionResult UpdateSpecialtyForm(int id)
         {
-            return View("Update", Specialty.Find(id));
+            return View(Specialty.Find(id));
         }
 
         [HttpGet("/specialties/{id}/details")]
         public ActionResult SpecialtyDetails(int id)
         {
-            return View(Specialty.Find(id));
+            return View("Specialty", Specialty.Find(id));
         }
 
     }

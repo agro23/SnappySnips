@@ -148,6 +148,12 @@ namespace HairSalon.Models
         cmd.ExecuteNonQuery();
         _id = (int)cmd.LastInsertedId;
 
+        //Try this out?
+        List<Specialty> allSpecialties = new List<Specialty> {};
+        allSpecialties = Specialty.GetAll();
+        // Console.WriteLine("Is Get all working?! Count: " + allSpecialties.Count);
+        //
+
         conn.Close();
         if (conn != null)
           conn.Dispose();

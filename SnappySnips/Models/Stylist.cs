@@ -114,6 +114,44 @@ namespace HairSalon.Models
         return allStylistClients;
     }
 
+// *************************************************************************************
+public List<Specialty> GetSkills(int id)
+// This is a temporary test
+{
+    List<Specialty> allSpecialties = new List<Specialty> {};
+
+    MySqlConnection conn = DB.Connection();
+    conn.Open();
+    MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    cmd.CommandText = @"SELECT * FROM skills;";
+    MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+    while(rdr.Read())
+    {
+      int skillId = rdr.GetInt32(0);
+      int stylistId = rdr.GetInt32(1);
+      int specialtyId = rdr.GetInt32(2);
+      // Console.WriteLine("Stylist at stylistId " + stylistId + " is " + Stylist.Find(stylistId).GetName());
+      // Console.WriteLine("Specialty at specialtyId " + specialtyId + " is " + Specialty.Find(specialtyId).GetName());
+
+      // Specialty newSpecialty = new Specialty(specialtyId, specialtyId);
+      if (stylistId == id)
+      {
+          allSpecialties.Add(Specialty.Find(specialtyId));
+          // Console.WriteLine("I did pass an id in here after all. ID: " + id);
+      }
+
+    }
+
+    conn.Close();
+    if (conn != null)
+    {
+        conn.Dispose();
+    }
+    // Console.WriteLine("allSpecialties is how long? " + allSpecialties.Count);
+    return allSpecialties;
+}
+
+
     public List<Specialty> GetSpecialties()
     {
         // List<Specialty> allStylistSpecialties = new List<Specialty> {};
@@ -152,10 +190,15 @@ namespace HairSalon.Models
         //         JOIN skills ON (stylists.id = skills.stylist_id)
         //         JOIN items ON (categories_items.item_id = items.id)
         //         WHERE categories.id = @CategoryId;";
+        //
+        // cmd.CommandText = @"SELECT specialties.* FROM stylists
+        //   JOIN skills ON (stylists.id = skills.stylist_id)
+        //   JOIN specialties ON (skills.id = specialties.id)
+        //   WHERE stylists.id = @StylistId;";
 
-        cmd.CommandText = @"SELECT * FROM stylists
+          cmd.CommandText = @"SELECT specialties.* FROM stylists
           JOIN skills ON (stylists.id = skills.stylist_id)
-          JOIN specialties ON (skills.id = specialties.id)
+          JOIN specialties ON (skills.specialty_id = specialties.id)
           WHERE stylists.id = @StylistId;";
 
 
@@ -172,16 +215,74 @@ namespace HairSalon.Models
         MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
         List<Specialty> allStylistSpecialties = new List<Specialty>{};
 
+        // int skill_Id = 0;
+        // int stylist_Id = 0;
+        // int specialty_Id = 0;
+        int specialty_Id = 0;
+        string specialtyName = "";
+
         while(rdr.Read())
         {
-          int skill_Id = rdr.GetInt32(0);
-          int stylist_Id = rdr.GetInt32(1);
-          int specialty_Id = rdr.GetInt32(2);
-          Specialty newSpecialty = new Specialty(Specialty.Find(specialty_Id).GetName());
+            try
+            {
+                specialty_Id = rdr.GetInt32(0);
+                Console.WriteLine("specialty_Id: " + specialty_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading specialty id is: " + ex);
+            }
+            try
+            {
+                specialtyName = rdr.GetString(1);
+                Console.WriteLine("specialtyName: " + specialtyName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading spwcilaty name is: " + ex);
+            }
+            Specialty newSpecialty = new Specialty(specialtyName);
+            allStylistSpecialties.Add(newSpecialty);
+            Console.WriteLine("In rdr new specialty is: " + newSpecialty.GetName());
+        }
 
+/*
+        while(rdr.Read())
+        {
+            try
+            {
+                skill_Id = rdr.GetInt32(0);
+                Console.WriteLine("Skill_Id: " + skill_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading skill id is: " + ex);
+            }
+            try
+            {
+                stylist_Id = rdr.GetInt32(1);
+                Console.WriteLine("Stylist_Id: " + stylist_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading stylist id is: " + ex);
+            }
+            try
+            {
+                specialty_Id = rdr.GetInt32(2);
+                Console.WriteLine("Specialty_Id: " + specialty_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading specialist id is: " + ex);
+            }
+
+        Specialty newSpecialty = new Specialty(Specialty.Find(specialty_Id).GetName());
+          // newSpecialty.Save(); // ************* Don't need to save here since this is temporary
           allStylistSpecialties.Add(newSpecialty);
           Console.WriteLine(newSpecialty.GetName());
         }
+        */
         conn.Close();
         if (conn != null)
         {
@@ -189,8 +290,8 @@ namespace HairSalon.Models
         }
 
         //Just pass somet crap back!
-        Specialty someSpecialty = new Specialty("Curling Hair");
-        allStylistSpecialties.Add(someSpecialty);
+        // Specialty someSpecialty = new Specialty("Eating Toes");
+        // allStylistSpecialties.Add(someSpecialty);
         Console.WriteLine("the list in stylist is this many: " + allStylistSpecialties.Count);
 
         return allStylistSpecialties;
@@ -198,19 +299,27 @@ namespace HairSalon.Models
 
     public void AddSpecialtyToStylist(Specialty newSpecialty)
     {
-        MySqlConnection conn = DB.Connection();
+      // ************************************************************************
+      Console.WriteLine("At least I got into AddSpecialtyToStylist!");
+      Console.WriteLine("And newSpecialty is: " + newSpecialty.GetName());
+          MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"INSERT INTO skills (stylist_id, specialty_id) VALUES (@StylistId, @SpecialtyId);";
 
         MySqlParameter stylists = new MySqlParameter();
         stylists.ParameterName = "@StylistId";
-        stylists.Value = _id;
+        stylists.Value = _id; // should it be this._id?
+        Console.WriteLine("_id is: " + _id);
+        // stylists.Value = 1;
         cmd.Parameters.Add(stylists);
 
         MySqlParameter specialties = new MySqlParameter();
         specialties.ParameterName = "@SpecialtyId";
         specialties.Value = newSpecialty.GetId();
+        Console.WriteLine("newSpecialty's id is: " + newSpecialty.GetId());
+
+        // specialties.Value = 1;
         cmd.Parameters.Add(specialties);
 
         cmd.ExecuteNonQuery();

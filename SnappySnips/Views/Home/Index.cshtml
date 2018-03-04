@@ -35,5 +35,32 @@
       }
     </div>
 
+    <div class="well">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>SPECIALTY</h3>
+        </div>
+        <div class="col-lg-4">
+          <h3>ACTION</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        @if(Specialty.GetAll().Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+              <div class="col-lg-6">
+                <h4 style="color:purple; font-size:1.75em;">@item.GetName()</h4>
+              </div>
+              <div class="col-lg-4">
+                <h4><a href="/stylists/@item.GetId()/details">VIEW</a> | <a href="/stylists/@item.GetId()/update">EDIT</a> | <a href="/stylists/@item.GetId()/delete">DELETE</a></h4>
+              </div>
+            }
+        }
+      </div>
+
+
+
   </div>
 </div>
