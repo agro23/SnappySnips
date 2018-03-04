@@ -80,6 +80,19 @@ namespace HairSalon.Models
         return allSpecialties;
     }
 
+    public List<Stylist> GetStylistsWithSpecialty()
+    {
+        List<Stylist> allStylists = new List<Stylist>{};
+        return allStylists;
+    }
+
+    public List<Client> GetClientsWithSpecialty()
+    {
+        List<Client> allClients = new List<Client>{};
+        return allClients;
+    }
+
+
     // public List<Client> GetClients()
     // {
     //   // List<Client> allSpecialtyClients = new List<Client> {};

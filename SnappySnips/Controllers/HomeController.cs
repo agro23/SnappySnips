@@ -28,16 +28,17 @@ namespace HairSalon.Controllers
           List<Stylist> allStylists = Stylist.GetAll();
           return View("Index", allStylists);
         }
-        [HttpGet("/stylists/{id}/update")]
-        public ActionResult UpdateForm(int id)
-        {
-            return View("Update", Stylist.Find(id));
-        }
 
         [HttpGet("/stylists/{id}/details")]
         public ActionResult Details(int id)
         {
-            return View(Stylist.Find(id));
+          return View(Stylist.Find(id));
+        }
+
+        [HttpGet("/stylists/{id}/update")]
+        public ActionResult UpdateForm(int id)
+        {
+            return View("Update", Stylist.Find(id));
         }
 
         [HttpPost("/stylists/{id}/update")]
@@ -135,7 +136,7 @@ namespace HairSalon.Controllers
           List<Specialty> allSpecialties = Specialty.GetAll();
           // return View("Index", allSpecialties);
           // return View("Index"); // maybe send it to a list of all specialties
-          return RedirectToAction("Index");
+          return RedirectToAction("SpecialtiesIndex", allSpecialties);
 
         }
 
@@ -161,18 +162,40 @@ namespace HairSalon.Controllers
             return View(Specialty.GetAll());
         }
 
-
-
         [HttpGet("/specialties/{id}/update")]
         public ActionResult UpdateSpecialtyForm(int id)
         {
             return View(Specialty.Find(id));
         }
 
+        [HttpPost("/specialties/{id}/update")]
+        public ActionResult UpdateSpecialty(int id)
+        {
+            string tempX1 = Request.Form["new-specialty"];
+            Specialty thisSpecialty = Specialty.Find(id);
+            thisSpecialty.Update(Request.Form["new-specialty"], id);
+            return RedirectToAction("SpecialtiesIndex", thisSpecialty);
+        }
+
         [HttpGet("/specialties/{id}/details")]
         public ActionResult SpecialtyDetails(int id)
         {
-            return View("Specialty", Specialty.Find(id));
+            // return View("Specialty", Specialty.Find(id));
+            return View(Specialty.Find(id));
+        }
+
+        [HttpGet("/specialties/{id}/delete")]
+        public ActionResult DeleteSpecialty(int id)
+        {
+          Specialty.Delete(id);
+          return View("SpecialtiesIndex", Specialty.GetAll());
+        }
+
+        [HttpGet("/specialties/deleteAll")]
+        public ActionResult SpecialtyDetails()
+        {
+            Specialty.DeleteAll();
+            return View("SpecialtyIndex", Specialty.GetAll());
         }
 
     }
