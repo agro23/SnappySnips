@@ -258,13 +258,67 @@ namespace HairSalon.Models.Tests
         }
 
         [TestMethod]
-        public void Add_SpecialtyToClientInTreatments_Void()
+        public void Get_StylistsWithSpecialty_Void()
         {
-            //Arrange
-            //Act
-            //Assert
-            Assert.AreEqual(1,1);
+          //Arrange
+          List<Stylist> manicurists = new List<Stylist>();
+          List<Stylist> whichStylists = new List<Stylist>();
+
+          //create some specialties
+          Specialty newSpecialty = new Specialty("Manicure");
+          newSpecialty.Save();
+          Specialty newSpecialty1 = new Specialty("Pedicure");
+          newSpecialty1.Save();
+          Specialty newSpecialty2 = new Specialty("Nail Art");
+          newSpecialty2.Save();
+
+          //create some stylists
+          Stylist rhonda = new Stylist("Rhonda");
+          rhonda.Save();
+          Stylist rita = new Stylist("Rita");
+          rita.Save();
+          Stylist rhoda = new Stylist("Rhoda");
+          rhoda.Save();
+
+          //Act
+          //Add some skills to each stylist
+          //Rhonda, Rita, and Rhoda can Manicure
+          rhonda.AddSpecialtyToStylist(newSpecialty);
+          manicurists.Add(rhonda);
+          rita.AddSpecialtyToStylist(newSpecialty);
+          manicurists.Add(rita);
+          rhoda.AddSpecialtyToStylist(newSpecialty);
+          manicurists.Add(rhoda);
+
+          //Rhonda and Rita can Pedicure
+          rhonda.AddSpecialtyToStylist(newSpecialty1);
+          rita.AddSpecialtyToStylist(newSpecialty1);
+
+          //Rhonda and Rhoda can do Nail Art
+          rhonda.AddSpecialtyToStylist(newSpecialty2);
+          rhoda.AddSpecialtyToStylist(newSpecialty2);
+
+          //Let's see who has Manicure as a specialty...
+          whichStylists = newSpecialty.GetStylistsWithSpecialty();
+          Console.WriteLine("And so Specialty " + newSpecialty.GetName() + " has the following stylists: ");
+          for (int i=0; i<whichStylists.Count; i++)
+          {
+              Console.WriteLine(whichStylists[i].GetName());
+          }
+          //Assert
+          Assert.AreEqual(manicurists.Count, whichStylists.Count);
         }
+
+
+
+        // [TestMethod]
+        // public void Add_SpecialtyToClientInTreatments_Void()
+        // {
+        //     //Arrange
+        //     //Act
+        //     //Assert
+        //     Assert.AreEqual(1,1);
+        // }
 
     }
 }

@@ -82,8 +82,62 @@ namespace HairSalon.Models
 
     public List<Stylist> GetStylistsWithSpecialty()
     {
-        List<Stylist> allStylists = new List<Stylist>{};
-        return allStylists;
+        // List<Stylist> allStylistsWithSpecialty = new List<Stylist>{};
+        // return allStylistsWithSpecialty;
+
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+
+        cmd.CommandText = @"SELECT stylists.* FROM specialties
+        JOIN skills ON (specialties.id = skills.specialty_id)
+        JOIN stylists ON (skills.stylist_id = stylists.id)
+        WHERE specialties.id = @SpecialtyId;";
+
+        MySqlParameter specialtyId = new MySqlParameter();
+        specialtyId.ParameterName = "@SpecialtyId";
+        specialtyId.Value = this._id;
+        cmd.Parameters.Add(specialtyId);
+
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        List<Stylist> allStylistsWithSpecialty = new List<Stylist>{};
+
+        int stylist_Id = 0;
+        string stylistName = "";
+
+        while(rdr.Read())
+        {
+            try
+            {
+                stylist_Id = rdr.GetInt32(0);
+                Console.WriteLine("stylist_Id: " + stylist_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading stylist id is: " + ex);
+            }
+            try
+            {
+                stylistName = rdr.GetString(1);
+                Console.WriteLine("stylistName: " + stylistName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading stylist name is: " + ex);
+            }
+            Stylist newStylist = new Stylist(stylistName);
+            allStylistsWithSpecialty.Add(newStylist);
+            Console.WriteLine("In rdr new stylist is: " + newStylist.GetName());
+        }
+
+
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+
+        return allStylistsWithSpecialty;
     }
 
     public List<Client> GetClientsWithSpecialty()

@@ -277,7 +277,13 @@ If you finish with time to spare, consider adding the following features:
   - EXPECTED INPUT (From SpecialtyTests.cs): "Hair Cut".
   - EXPECTED OUTPUT: None.
 
+* Add GetSpecialties() to Stylist with Empty list and test it in the stylist Details View
+- EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
+  - EXPECTED OUTPUT: Empty List.
+
 * Add Specialties Index View to see all Specialties available
+
+* Add Edit to Specialties Index View.
 
 * Add Delete to Specialties Index View
 
@@ -285,23 +291,24 @@ If you finish with time to spare, consider adding the following features:
 
 * Add Specialty Detail View
 
-
-
-* Add Edit to Specialties Index View.
-
-
-
-
-* Add Delete to Specialty Detail View
-
-* Add Update to Specialty Detail View
+* Add to Specialties to Stylist via Stylist Update() <---------------------------------------------------------------------
+- Test
+Read from Join table
+test with data
 
 
 
+* Add Stylists with Specialty list to Specialty Detail View
 
-* Add GetSpecialties() to Stylist with Empty list and test it in the stylist Details View
-  - EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
-  - EXPECTED OUTPUT: Empty List.
+
+
+
+
+
+
+
+
+
 
 * Add DeleteAllSpecialties() to Stylist. <-------- Change this yes???----------
 - EXPECTED INPUT (From StylistTests.cs to Stylist.cs): "Peter Parker".
@@ -320,10 +327,6 @@ If you finish with time to spare, consider adding the following features:
 
 
 
-* Add to Specialties to Stylist via Stylist Update() <---------------------------------------------------------------------
-  - Test
-  Read from Join table
-  test with data
 
 
 

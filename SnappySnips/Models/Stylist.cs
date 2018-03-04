@@ -181,51 +181,10 @@ namespace HairSalon.Models
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
 
-
-        // cmd.CommandText = @"SELECT specialties.* FROM stylists
-        //   JOIN skills ON (stylists.id = skills.stylist_id)
-        //   JOIN specialties ON (skills.specialty_id = specialties.id)
-        //   WHERE stylists.id = @StylistId;"; // nope ******
-
-          // cmd.CommandText = @"SELECT items.* FROM categories
-          //                 JOIN categories_items ON (categories.id = categories_items.category_id)
-          //                 JOIN items ON (categories_items.item_id = items.id)
-          //                 WHERE categories.id = @CategoryId;";
-
-        // cmd.CommandText = @"SELECT specialties.* FROM stylists
-        //   JOIN skills ON (stylists.id = skills.stylist_id)
-        //   JOIN specialties ON (skills.specialty_id = specialties.id)
-        //   WHERE stylists.id = @StylistId;"; // NOPE ******
-
-        // cmd.CommandText = @"SELECT * FROM specialties
-        //   JOIN skills ON (specialties.id = skills.specialty_id)
-        //   JOIN stylists ON (stylists.id = stylist_id)
-        //   WHERE specialties.id = @StylistId;"; // NOPE*****
-
-
-
-
-        //
-        // cmd.CommandText =  @"SELECT specialties.* FROM stylists
-        //         JOIN skills ON (stylists.id = skills.stylist_id)
-        //         JOIN items ON (categories_items.item_id = items.id)
-        //         WHERE categories.id = @CategoryId;";
-        //
-        // cmd.CommandText = @"SELECT specialties.* FROM stylists
-        //   JOIN skills ON (stylists.id = skills.stylist_id)
-        //   JOIN specialties ON (skills.id = specialties.id)
-        //   WHERE stylists.id = @StylistId;";
-
-          cmd.CommandText = @"SELECT specialties.* FROM stylists
-          JOIN skills ON (stylists.id = skills.stylist_id)
-          JOIN specialties ON (skills.specialty_id = specialties.id)
-          WHERE stylists.id = @StylistId;";
-
-
-          // cmd.CommandText = @"SELECT items.* FROM rooms
-          //   JOIN contents ON (rooms.id = contents.rooms)
-          //   JOIN items ON (contents.items = items.id)
-          //   WHERE rooms.id = @RoomId;";
+        cmd.CommandText = @"SELECT specialties.* FROM stylists
+        JOIN skills ON (stylists.id = skills.stylist_id)
+        JOIN specialties ON (skills.specialty_id = specialties.id)
+        WHERE stylists.id = @StylistId;";
 
         MySqlParameter stylistId = new MySqlParameter();
         stylistId.ParameterName = "@StylistId";
@@ -235,9 +194,6 @@ namespace HairSalon.Models
         MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
         List<Specialty> allStylistSpecialties = new List<Specialty>{};
 
-        // int skill_Id = 0;
-        // int stylist_Id = 0;
-        // int specialty_Id = 0;
         int specialty_Id = 0;
         string specialtyName = "";
 
@@ -266,53 +222,11 @@ namespace HairSalon.Models
             Console.WriteLine("In rdr new specialty is: " + newSpecialty.GetName());
         }
 
-/*
-        while(rdr.Read())
-        {
-            try
-            {
-                skill_Id = rdr.GetInt32(0);
-                Console.WriteLine("Skill_Id: " + skill_Id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception reading skill id is: " + ex);
-            }
-            try
-            {
-                stylist_Id = rdr.GetInt32(1);
-                Console.WriteLine("Stylist_Id: " + stylist_Id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception reading stylist id is: " + ex);
-            }
-            try
-            {
-                specialty_Id = rdr.GetInt32(2);
-                Console.WriteLine("Specialty_Id: " + specialty_Id);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception reading specialist id is: " + ex);
-            }
-
-        Specialty newSpecialty = new Specialty(Specialty.Find(specialty_Id).GetName());
-          // newSpecialty.Save(); // ************* Don't need to save here since this is temporary
-          allStylistSpecialties.Add(newSpecialty);
-          Console.WriteLine(newSpecialty.GetName());
-        }
-        */
         conn.Close();
         if (conn != null)
         {
             conn.Dispose();
         }
-
-        //Just pass somet crap back!
-        // Specialty someSpecialty = new Specialty("Eating Toes");
-        // allStylistSpecialties.Add(someSpecialty);
-        Console.WriteLine("the list in stylist is this many: " + allStylistSpecialties.Count);
 
         return allStylistSpecialties;
     }
