@@ -2,10 +2,10 @@
 -- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Mar 03, 2018 at 01:38 AM
--- Server version: 5.6.35
--- PHP Version: 7.0.15
+-- Host: 127.0.0.1
+-- Generation Time: Mar 05, 2018 at 03:18 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -34,6 +34,14 @@ CREATE TABLE `clients` (
   `stylist_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `stylist_id`) VALUES
+(2, 'Derf', 1),
+(3, 'Fred', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +53,17 @@ CREATE TABLE `skills` (
   `stylist_id` int(11) NOT NULL,
   `specialty_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`id`, `stylist_id`, `specialty_id`) VALUES
+(19, 1, 1),
+(20, 2, 1),
+(21, 2, 1),
+(22, 1, 2),
+(23, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -62,15 +81,7 @@ CREATE TABLE `specialties` (
 --
 
 INSERT INTO `specialties` (`id`, `name`) VALUES
-(1, 'Crimping'),
-(2, 'Primping'),
-(3, 'Crimping'),
-(4, 'tomatoes'),
-(5, 'Ice Cream Making'),
-(6, 'zombie hunting'),
-(7, 'clapping'),
-(8, 'laughing'),
-(9, 'dying');
+(2, 'Taste Buds');
 
 -- --------------------------------------------------------
 
@@ -81,6 +92,26 @@ INSERT INTO `specialties` (`id`, `name`) VALUES
 CREATE TABLE `stylists` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stylists`
+--
+
+INSERT INTO `stylists` (`id`, `name`) VALUES
+(1, 'Rhonda'),
+(2, 'Ruby');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `treatments`
+--
+
+CREATE TABLE `treatments` (
+  `id` int(11) NOT NULL,
+  `specialty_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -116,6 +147,13 @@ ALTER TABLE `stylists`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Indexes for table `treatments`
+--
+ALTER TABLE `treatments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -123,21 +161,26 @@ ALTER TABLE `stylists`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `specialties`
 --
 ALTER TABLE `specialties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `stylists`
 --
 ALTER TABLE `stylists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `treatments`
+--
+ALTER TABLE `treatments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
