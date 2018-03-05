@@ -271,7 +271,6 @@ namespace HairSalon.Models.Tests
 
         [TestMethod]
         public void ReturnsAListFrom_GetSpecialties_True()
-        // WHAT AM I TESTING HERE? TO SEE IF ANY LIST COMES BACK AT ALL? ASSERT TYPEOF?
         {
             //Arrange
             Stylist testStylist = new Stylist("Boba Fett"); // make a stylist

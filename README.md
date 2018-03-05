@@ -278,7 +278,7 @@ If you finish with time to spare, consider adding the following features:
   - EXPECTED OUTPUT: None.
 
 * Add GetSpecialties() to Stylist with Empty list and test it in the stylist Details View
-- EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
+  - EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
   - EXPECTED OUTPUT: Empty List.
 
 * Add Specialties Index View to see all Specialties available
@@ -291,39 +291,30 @@ If you finish with time to spare, consider adding the following features:
 
 * Add Specialty Detail View
 
-* Add to Specialties to Stylist via Stylist Update() <---------------------------------------------------------------------
+* Add Specialties to Stylist via Stylist Update()
 - Test
 Read from Join table
 test with data
 
+???* Add GetStylists to Client
 
+* Add GetSpecialties to Client
+
+* Add UpdateStylist to Client
+
+* Create Detail View for Client
+
+* Create Change Stylist View for Client
+
+* Add GetSpecialties() to client with Empty list and test it in the stylist Details View
+  - EXPECTED INPUT (From Client.cs ): <List> Specialty {}
+  - EXPECTED OUTPUT: Empty List.
+
+* Add AddTreatment() method to Client using JOIN table
 
 * Add Stylists with Specialty list to Specialty Detail View
 
-
-
-
-
-
-
-
-
-
-
-* Add DeleteAllSpecialties() to Stylist. <-------- Change this yes???----------
-- EXPECTED INPUT (From StylistTests.cs to Stylist.cs): "Peter Parker".
-- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Vulture", <PeterParker's stylist_ID>.
-- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Doctor Octopus" <PeterParker's stylist_ID>.
-- EXPECTED INPUT (From StylistTests.cs to Client.cs): "Sandman" <PeterParker's stylist_ID>.
-- EXPECTED OUTPUT: None.
-
-
-* Add AddSpecialty <---------------------------------------------------------------------
-- TEST
-
-* GetSpecialties() uses data from JOIN table skills?????? <---------------------------------------------------------
-- EXPECTED INPUT (From Stylist.cs ): <List> Specialty {}
-- EXPECTED OUTPUT: Empty List.
+* Add AddSpecialty to Specialty Detail View
 
 
 

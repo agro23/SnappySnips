@@ -101,40 +101,134 @@ namespace HairSalon.Models
             return allClients;
         }
 
-
-        //*********************************************************************************
-
+        // *********************************************************************************
         public List<Stylist> GetStylists()
         {
-            List<Stylist> allStylists = new List<Stylist> {};
-            return allStylists;
-        }
+            List<Stylist> allClientStylists = new List<Stylist>{};
+            allClientStylists.Add(Stylist.Find(this.GetStylistId()));
+          // FOR NOW IT'S JUST A CALL TO GetStylist and put in a list for consistantcy
+          //   // List<Stylist> allStylists = new List<Stylist> {};
+          //   // return allStylists;
+          //   //
+          //
+          // List<Stylist> allClientStylists = new List<Stylist> {};
+          // MySqlConnection conn = DB.Connection();
+          // conn.Open();
+          // var cmd = conn.CreateCommand() as MySqlCommand;
+          //
+          // cmd.CommandText = @"SELECT * FROM clients WHERE stylist_id = @Stylist_id;";
+          // MySqlParameter stylistId = new MySqlParameter();
+          // stylistId.ParameterName = "@Stylist_id";
+          // stylistId.Value = this._id;
+          // cmd.Parameters.Add(stylistId);
+          //
+          //
+          // var rdr = cmd.ExecuteReader() as MySqlDataReader;
+          // while(rdr.Read())
+          // {
+          //   int clientId = rdr.GetInt32(0);
+          //   string clientName = rdr.GetString(1);
+          //   int clientStylistId = rdr.GetInt32(2);
+          //   Stylist newStylist = new Stylist(Stylist.Find(clientStylistId).GetName());
+          //   Console.WriteLine("Stylist = " + Stylist.Find(clientStylistId).GetName());
+          //   allClientStylists.Add(newStylist);
+          // }
+          // conn.Close();
+          // if (conn != null)
+          // {
+          //     conn.Dispose();
+          // }
 
-//*********************************************************************************
+            return allClientStylists;
+        }
+        // *********************************************************************************
+
         public List<Specialty> GetSpecialties()
         {
+            // List<Specialty> allStylistSpecialties = new List<Specialty> {};
+            // return allStylistSpecialties; // Return an empty list for now
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"SELECT specialties.* FROM clients
+            JOIN treatments ON (clients.id = treatments.client_id)
+            JOIN specialties ON (treatments.specialty_id = specialties.id)
+            WHERE clients.id = @ClientId;";
+
+            MySqlParameter clientId = new MySqlParameter();
+            clientId.ParameterName = "@ClientId";
+            clientId.Value = this._id;
+            cmd.Parameters.Add(clientId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            List<Specialty> allClientSpecialties = new List<Specialty>{};
+
+            int specialty_Id = 0;
+            string specialtyName = "";
+
+            while(rdr.Read())
+            {
+                try
+                {
+                    specialty_Id = rdr.GetInt32(0);
+                    Console.WriteLine("specialty_Id: " + specialty_Id);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception reading specialty id is: " + ex);
+                }
+                try
+                {
+                    specialtyName = rdr.GetString(1);
+                    Console.WriteLine("specialtyName: " + specialtyName);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception reading specialty name is: " + ex);
+                }
+                Specialty newSpecialty = new Specialty(specialtyName);
+                allClientSpecialties.Add(newSpecialty);
+                Console.WriteLine("In rdr new specialty is: " + newSpecialty.GetName());
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return allClientSpecialties;
+        }
+
+
+
+        //*********************************************************************************
+        public static List<Specialty> GetAllSpecialties()
+        // this saves me from a lot of dictionary declarations in HomeController
+        {
             List<Specialty> allSpecialties = new List<Specialty> {};
-            // MySqlConnection conn = DB.Connection();
-            // conn.Open();
-            // var cmd = conn.CreateCommand() as MySqlCommand;
-            // cmd.CommandText = @"SELECT * FROM clients;";
-            // var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            // while(rdr.Read())
-            // {
-            //     int clientId = rdr.GetInt32(0);
-            //     string clientName = rdr.GetString(1);
-            //     int clientStylistId = rdr.GetInt32(2);
-            //     Client newClient = new Client(clientName, clientStylistId, clientId);
-            //     allClients.Add(newClient);
-            // }
-            // conn.Close();
-            // if (conn != null)
-            // {
-            //     conn.Dispose();
-            // }
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM specialties;";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+              int specialtyId = rdr.GetInt32(0);
+              string specialtyName = rdr.GetString(1);
+              Specialty newSpecialty = new Specialty(specialtyName, specialtyId);
+              allSpecialties.Add(newSpecialty);
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
             return allSpecialties;
         }
-//*********************************************************************************
+        //*********************************************************************************
 
         public static Client Find(int id)
         {

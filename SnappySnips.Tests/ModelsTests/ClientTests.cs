@@ -173,6 +173,45 @@ namespace HairSalon.Models.Tests
             CollectionAssert.AreEqual(testList, Client.GetAll());
         }
 
+        [TestMethod]
+        public void ReturnsAListFrom_GetSpecialties_True()
+        {
+            //Arrange
+            Client testClient = new Client("Boba Fett", 1); // make a Client
+            testClient.Save();
+            Specialty testSpecialty = new Specialty("Falling into Sarlaccs"); // make a Specialty
+            testSpecialty.Save();
+
+            //Act
+            List <Specialty> testSpecialtyList = new List<Specialty> {}; // make an empty list
+
+            //Assert
+            Assert.IsInstanceOfType(testClient.GetSpecialties(), typeof(List<Specialty>));
+        }
+
+
+        [TestMethod]
+        public void ReturnsSpecialtiesListFrom_GetSpecialties_True()
+        {
+            //Arrange
+            Client testClient = new Client("Boba Fett", 1); // make a Client
+            testClient.Save();
+            Specialty testSpecialty = new Specialty("Falling into Sarlaccs"); // make a Specialty
+            testSpecialty.Save();
+            Specialty testSpecialty1 = new Specialty("Jetpacking"); // make another Specialty
+            testSpecialty1.Save();
+
+            //Act
+            List <Specialty> testSpecialtyList = new List<Specialty> {}; // make an empty list
+            testSpecialtyList.Add(testSpecialty);
+            testSpecialtyList.Add(testSpecialty1);
+
+            //Assert
+            CollectionAssert.AreEqual(testSpecialtyList, testClient.GetSpecialties());
+        }
+
+
+
     } // end class
 
 } // end namespace

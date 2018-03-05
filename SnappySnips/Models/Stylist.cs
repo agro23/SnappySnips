@@ -81,7 +81,7 @@ namespace HairSalon.Models
     }
 
     public static List<Specialty> GetAllSpecialties()
-    // this saves me from a lot of dictionary declarations in HomeController ************************************
+    // this saves me from a lot of dictionary declarations in HomeController
     {
         List<Specialty> allSpecialties = new List<Specialty> {};
         MySqlConnection conn = DB.Connection();
@@ -215,7 +215,7 @@ namespace HairSalon.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception reading spwcilaty name is: " + ex);
+                Console.WriteLine("Exception reading specialty name is: " + ex);
             }
             Specialty newSpecialty = new Specialty(specialtyName);
             allStylistSpecialties.Add(newSpecialty);
