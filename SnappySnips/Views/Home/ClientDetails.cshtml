@@ -2,7 +2,78 @@
   Layout = "_Layout";
 }
 
-<div class="container well">
-  <h2>@Model.GetName() Details:</h2>
-  <h4><a href="/">Return Home</a></h4>
+<div class="container">
+  <div class="well row">
+    <h1>Snappy Snips Hair Salon</h1>
+  </div>
+  <div class="well row">
+    <h2>Client: <strong>@Model.GetName()</strong></h2>
+  </div>
+
+  <div class = "well row">
+    <h4><a href="/clients/@Model.GetId()/new/specialty">ADD TREATMENT</a> | <a href="/deleteAllSpecialties/@Model.GetId()">DELETE ALL TREATMENTS</a> | <a href="/stylists/@Model.GetId()/new">CHANGE STYLIST</a> | <a href="/">BACK</a></h4>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>TREATMENT</h3>
+      </div>
+      <div class="col-lg-4">
+        <h3>ACTION</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      @if(@Model.GetSpecialties().Count > 0)
+      {
+        /* Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties()."); */
+          @foreach (var specialty in @Model.GetSpecialties())
+          {
+            <div class="col-lg-6">
+              <h4>@specialty.GetName()</h4>
+            </div>
+            <div class="col-lg-4">
+              <h4>This is Borked!</h4>
+              <h4><a href="/specialties/@specialty.GetId()/details">VIEW</a> | <a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+            </div>
+          }
+      }
+      else
+      {
+        <h4>@Model.GetName() has no treatments right now.</h4>
+      }
+    </div>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3>STYLIST</h3>
+      </div>
+      <div class="col-lg-4">
+        <h3>ACTION</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      @if(@Model.GetStylists().Count > 0)
+      {
+          @foreach (var stylist in @Model.GetStylists())
+          {
+            <div class="col-lg-6">
+              <h4>@stylist.GetName()</h4>
+            </div>
+            <div class="col-lg-4">
+              <h4><a href="/clients/@stylist.GetId()/StylisttDetails">VIEW</a> | <a href="/stylists/@stylist.GetId()/update">EDIT</a> | <a href="/stylists/@stylist.GetId()/delete">DELETE</a></h4>
+            </div>
+          }
+      }
+      else
+      {
+        <h4>@Model.GetName() has no stylist right now.</h4>
+        <h4>But if it did show it would be @Model.GetStylistId().</h4>
+      }
+    </div>
+  </div>
 </div>

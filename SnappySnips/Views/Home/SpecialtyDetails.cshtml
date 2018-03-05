@@ -27,20 +27,20 @@
     <div class="row">
       @if(@Model.GetStylistsWithSpecialty().Count > 0)
       {
-        Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties().");
-          @foreach (var specialty in @Model.GetSpecialties())
+        /* Console.WriteLine("There are " + @Model.GetAll().Count + " specialties according to Stylist.GetSpecialties()."); */
+          @foreach (var specialty in @Model.GetStylistsWithSpecialty())
           {
-            <div class="col-lg-6">
-              <h4><a href="/specialties/@Model.GetId()/SpecialtyDetails">@specialty.GetName()</a></h4>
-            </div>
-            <div class="col-lg-4">
-              <h4><a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
-            </div>
+              <div class="col-lg-6">
+                <h4><a href="/specialties/@Model.GetId()/SpecialtyDetails">@specialty.GetName()</a></h4>
+              </div>
+              <div class="col-lg-4">  
+                <h4><a href="/specialties/@Model.GetId()/view">VIEW</a> | <a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+              </div>
           }
       }
       else
       {
-        <h4>No stylists have specialty @Model.GetName() right now.</h4>
+          <h4>No stylists have specialty @Model.GetName() right now.</h4>
       }
     </div>
   </div>

@@ -50,6 +50,15 @@ namespace HairSalon.Controllers
             return RedirectToAction("Index", thisStylist);
         }
 
+        // [HttpGet("/stylists/{id}/edit")]
+        // public ActionResult Delete(int id)
+        // {
+        //     Stylist.Edit(id);
+        //     return RedirectToAction("Index");
+        // }
+
+
+
         [HttpGet("/stylists/{id}/delete")]
         public ActionResult Delete(int id)
         {
@@ -162,6 +171,13 @@ namespace HairSalon.Controllers
             return View(Specialty.GetAll());
         }
 
+        [HttpGet("/specialties/{id}/view")]
+        public ActionResult StylistDetails(int id)
+        {
+            //get stylist id from this id... *******************************************************
+            return View("Details", Stylist.Find(id));
+        }
+
         [HttpGet("/specialties/{id}/update")]
         public ActionResult UpdateSpecialtyForm(int id)
         {
@@ -187,15 +203,15 @@ namespace HairSalon.Controllers
         [HttpGet("/specialties/{id}/delete")]
         public ActionResult DeleteSpecialty(int id)
         {
-          Specialty.Delete(id);
-          return View("SpecialtiesIndex", Specialty.GetAll());
+            Specialty.Delete(id);
+            return View("SpecialtiesIndex", Specialty.GetAll());
         }
 
         [HttpGet("/specialties/deleteAll")]
         public ActionResult SpecialtyDetails()
         {
             Specialty.DeleteAll();
-            return View("SpecialtyIndex", Specialty.GetAll());
+            return View("SpecialtiesIndex", Specialty.GetAll());
         }
 
         [HttpGet("/specialties/{id}/new/stylist")]

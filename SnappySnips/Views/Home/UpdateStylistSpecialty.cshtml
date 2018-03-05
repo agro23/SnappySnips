@@ -14,10 +14,10 @@
         @foreach (var item in Model[1])
         {
           <div class="col-lg-6">
-            <h4 style="color:purple; font-size:1.75em;">@item.GetId() | @item.GetName()</h4>
+            <h4 style="color:purple; font-size:1.75em;">@item.GetName()</h4>
           </div>
           <div class="col-lg-4">
-            <h4><a href="/stylists/@item.GetId()/details">VIEW WHAT?</a> | <a href="/stylists/@item.GetId()/@Model[0][0].GetId()/add">ADD</a></h4>
+            <h4><a href="/specialties/@item.GetId()/details">VIEW</a> | <a href="/stylists/@item.GetId()/@Model[0][0].GetId()/add">ADD</a></h4>
             <h4>
           </div>
         }

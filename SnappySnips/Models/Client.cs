@@ -100,8 +100,18 @@ namespace HairSalon.Models
             }
             return allClients;
         }
+
+
+        //*********************************************************************************
+
+        public List<Stylist> GetStylists()
+        {
+            List<Stylist> allStylists = new List<Stylist> {};
+            return allStylists;
+        }
+
 //*********************************************************************************
-        public static List<Specialty> GetSpecialties()
+        public List<Specialty> GetSpecialties()
         {
             List<Specialty> allSpecialties = new List<Specialty> {};
             // MySqlConnection conn = DB.Connection();

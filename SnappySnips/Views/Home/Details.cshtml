@@ -19,21 +19,22 @@
         <h3>SPECIALTY</h3>
       </div>
       <div class="col-lg-4">
-        <h3>ACTION</h3>
+        <!-- <h3>ACTION</h3> -->
       </div>
     </div>
 
     <div class="row">
       @if(@Model.GetSpecialties().Count > 0)
       {
-        Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties().");
+        /* Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties()."); */
           @foreach (var specialty in @Model.GetSpecialties())
           {
             <div class="col-lg-6">
-              <h4><a href="/specialties/@Model.GetId()/SpecialtyDetails">@specialty.GetName()</a></h4>
+              <h4>@specialty.GetName()</h4>
             </div>
             <div class="col-lg-4">
-              <h4><a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+              <h4>This is Borked!</h4>
+              <h4><a href="/specialties/@specialty.GetId()/details">VIEW</a> | <a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
             </div>
           }
       }
@@ -60,10 +61,10 @@
           @foreach (var client in @Model.GetClients())
           {
             <div class="col-lg-6">
-              <h4><a href="/clients/@client.GetId()/ClientDetails">@client.GetName()</a></h4>
+              <h4>@client.GetName()</h4>
             </div>
             <div class="col-lg-4">
-              <h4><a href="/clients/@client.GetId()/update">EDIT</a> | <a href="/clients/@client.GetId()/delete">DELETE</a></h4>
+              <h4><h4><a href="/clients/@client.GetId()/ClientDetails">VIEW</a> | <a href="/clients/@client.GetId()/update">EDIT</a> | <a href="/clients/@client.GetId()/delete">DELETE</a></h4>
             </div>
           }
       }
