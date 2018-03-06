@@ -142,16 +142,72 @@ namespace HairSalon.Models
 
     public List<Client> GetClientsWithSpecialty()
     {
-        List<Client> allClients = new List<Client>{};
-        return allClients;
+        // List<Client> allClients = new List<Client>{};
+        // Console.WriteLine("This should return results from a JOIN table."); // *****
+        // return allClientsWithSpecialty;
+
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+
+        cmd.CommandText = @"SELECT clients.* FROM specialties
+        JOIN treatments ON (specialties.id = treatments.specialty_id)
+        JOIN clients ON (treatments.client_id = clients.id)
+        WHERE specialties.id = @SpecialtyId;";
+
+        MySqlParameter specialtyId = new MySqlParameter();
+        specialtyId.ParameterName = "@SpecialtyId";
+        specialtyId.Value = this._id;
+        cmd.Parameters.Add(specialtyId);
+
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        List<Client> allClientsWithSpecialty = new List<Client>{};
+
+        int client_Id = 0;
+        string clientName = "";
+
+        while(rdr.Read())
+        {
+            try
+            {
+                client_Id = rdr.GetInt32(0);
+                Console.WriteLine("client_Id: " + client_Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading client id is: " + ex);
+            }
+            try
+            {
+                clientName = rdr.GetString(1);
+                Console.WriteLine("clientName: " + clientName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception reading client name is: " + ex);
+            }
+            Client newClient = new Client(clientName, client_Id);
+            allClientsWithSpecialty.Add(newClient);
+            Console.WriteLine("In rdr new client is: " + newClient.GetName());
+        }
+
+
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
+
+        return allClientsWithSpecialty;
+
     }
+//*******************************************************************************************
 
-
-    // public List<Client> GetClients()
-    // {
-    //   // List<Client> allSpecialtyClients = new List<Client> {};
-    //   // return allSpecialtyClients;
-    //
+    public List<Client> GetClients()
+    {
+      List<Client> allSpecialtyClients = new List<Client> {};
+      return allSpecialtyClients;
+    }
     //   List<Client> allSpecialtyClients = new List<Client> {};
     //   MySqlConnection conn = DB.Connection();
     //   conn.Open();

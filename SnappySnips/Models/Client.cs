@@ -268,6 +268,37 @@ namespace HairSalon.Models
         }
         //*********************************************************************************
 
+        public void AddSpecialtyToClient(Specialty newSpecialty)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO treatments (client_id, specialty_id) VALUES (@ClientId, @SpecialtyId);";
+
+            Console.WriteLine("Specialty is: " + newSpecialty.GetId() + " or " + Specialty.Find(newSpecialty.GetId()).GetName());
+            Console.WriteLine("Client is: " + _id + " or " + Client.Find(_id).GetName());
+
+            MySqlParameter clients = new MySqlParameter();
+            clients.ParameterName = "@ClientId";
+            clients.Value = _id;
+            cmd.Parameters.Add(clients);
+
+            MySqlParameter specialties = new MySqlParameter();
+            specialties.ParameterName = "@SpecialtyId";
+            specialties.Value = newSpecialty.GetId();
+
+            // specialties.Value = 1;
+            cmd.Parameters.Add(specialties);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public static Client Find(int id)
         {
             MySqlConnection conn = DB.Connection();

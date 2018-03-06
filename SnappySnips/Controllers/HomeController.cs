@@ -154,6 +154,18 @@ namespace HairSalon.Controllers
             return View("Details", Stylist.Find(thisClient.GetStylistId()));
         }
 
+        [HttpGet("/clients/{id}/new/specialty")]
+        public ActionResult AddTreatment(int id)
+        {
+            Client tempClient = Client.Find(id);
+            List<Specialty> tempSpecialty = Specialty.GetAll();
+            List<object> model = new List<object>{};
+            model.Add(tempClient);
+            model.Add(tempSpecialty);
+            return View("TreatmentsIndex", model);
+            // *****
+        }
+
         [HttpGet("/specialties/new")]
         public ActionResult CreateSpecialtyForm()
         // was CreateForm()
@@ -278,6 +290,33 @@ namespace HairSalon.Controllers
         //     newSpecialty.Save();
         //     return View("Details", Stylist.Find(stylistId));
         // }
+
+        [HttpGet("/specialties/{id}/new/client")]
+        // should this be 'treatments' instead of 'specialties'?
+        public ActionResult AddSpecialtyToClient(int id)
+        {
+            List<object> model = new List<object>{};
+            List<Client> tempClient = new List<Client>{};
+            tempClient.Add(Client.Find(id));
+            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
+            model.Add(tempClient); // was id
+            List<Specialty> specialties = new List<Specialty>{};
+            specialties = Specialty.GetAll();
+            model.Add(specialties);
+            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
+            return View("UpdateClientTreatment", model);
+        }
+
+        [HttpGet("/treatments/{clientId}/{specialtyId}/addit")]
+        public ActionResult AddToClient(int specialtyId, int clientId)
+        {
+            // add specialty x and stylist x1 to skills via JOIN
+            //How do I know what stylist it is????
+            Client tempClient = Client.Find(clientId);
+            tempClient.AddSpecialtyToClient(Specialty.Find(specialtyId));
+            return View ("ClientDetails", tempClient);
+        }
+
 
     }
 }
