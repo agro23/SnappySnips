@@ -57,6 +57,31 @@ namespace HairSalon.Controllers
         //     return RedirectToAction("Index");
         // }
 
+        [HttpGet("/stylists/{id}/new")]
+        public ActionResult ChangeClientStylist (int id)
+        {
+            // Stylist.Edit(id);
+            Client tempClient = Client.Find(id);
+            Stylist tempStylist = Stylist.Find(tempClient.GetStylistId());
+            List<Stylist> tempStylists = Stylist.GetAll();
+            List<object> model = new List<object>{};
+            model.Add(tempClient);
+            model.Add(tempStylist);
+            model.Add(tempStylists);
+            return View(model);
+            // return RedirectToAction("Index");
+        }
+
+        [HttpGet("/stylists/{clientId}/{stylistId}/addme")]
+        public ActionResult ChangeStylist (int clientId, int stylistId)
+        {
+            Client tempClient = Client.Find(clientId);
+            // Console.WriteLine("Add finds Client: " + tempClient.GetName() + " and Stylist: " + Stylist.Find(tempClient.GetStylistId()).GetName());
+            // tempClient.SetStylistId(stylistId);
+            tempClient.ChangeStylist(stylistId);
+            Console.WriteLine("But changes to Stylist: " + Stylist.Find(stylistId));
+            return View ("Index", Stylist.GetAll());
+        }
 
 
         [HttpGet("/stylists/{id}/delete")]
