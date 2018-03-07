@@ -167,7 +167,6 @@ namespace HairSalon.Models
                 try
                 {
                     specialty_Id = rdr.GetInt32(0);
-                    .WriteLine("specialty_Id: " + specialty_Id);
                 }
                 catch (Exception ex)
                 {
