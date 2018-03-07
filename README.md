@@ -319,7 +319,7 @@ test with data
 * Refactor code as needed.
 
 ## Methodology
-This project was similar in structure and scope to the To Do List project. So, I followed a similar design pattern where Stylists were like Categories and Clients were like Items and Stylists had a one-to-many relationship with Clients the way that Categories related to Items.
+This project was similar in to the original Hair Salon but with many-to-many tables that required JOINs.
 
 ## Setup/Installation Requirements
 
