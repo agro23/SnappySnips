@@ -11,7 +11,7 @@
   </div>
 
   <div class = "well row">
-    <h4><a href="/clients/@Model.GetId()/new/specialty">ADD TREATMENT</a> | <a href="/deleteAllSpecialties/@Model.GetId()">DELETE ALL TREATMENTS</a> | <a href="/stylists/@Model.GetId()/new">CHANGE STYLIST</a> | <a href="/">BACK</a></h4>
+    <h4><a href="/clients/@Model.GetId()/new/specialty">ADD TREATMENT</a> | <a href="/clients/@Model.GetId()/deleteAllSpecialties/">REMOVE ALL TREATMENTS</a> | <a href="/stylists/@Model.GetId()/new">CHANGE STYLIST</a> | <a href="/">BACK</a></h4>
   </div>
 
   <div class="well">
@@ -20,7 +20,7 @@
         <h3>TREATMENT</h3>
       </div>
       <div class="col-lg-4">
-        <h3>ACTION</h3>
+        <h3></h3>
       </div>
     </div>
 
@@ -34,8 +34,7 @@
               <h4>@specialty.GetName()</h4>
             </div>
             <div class="col-lg-4">
-              <h4>This is Borked!</h4>
-              <h4><a href="/specialties/@specialty.GetId()/details">VIEW</a> | <a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+
             </div>
           }
       }
@@ -52,7 +51,7 @@
         <h3>STYLIST</h3>
       </div>
       <div class="col-lg-4">
-        <h3>ACTION</h3>
+        <h3></h3>
       </div>
     </div>
 
@@ -65,14 +64,13 @@
               <h4>@stylist.GetName()</h4>
             </div>
             <div class="col-lg-4">
-              <h4><a href="/clients/@stylist.GetId()/StylistDetails">VIEW</a> | <a href="/stylists/@stylist.GetId()/update">EDIT</a> | <a href="/stylists/@stylist.GetId()/delete">DELETE</a></h4>
+
             </div>
           }
       }
       else
       {
         <h4>@Model.GetName() has no stylist right now.</h4>
-        <h4>But if it did show it would be @Model.GetStylistId().</h4>
       }
     </div>
   </div>

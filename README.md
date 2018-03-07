@@ -296,7 +296,7 @@ If you finish with time to spare, consider adding the following features:
 Read from Join table
 test with data
 
-???* Add GetStylists to Client
+* Add GetStylists to Client
 
 * Add GetSpecialties to Client
 
@@ -316,22 +316,6 @@ test with data
 
 * Add AddSpecialty to Specialty Detail View
 
-
-
-
-
-
-* Create a NAV footer
-
-
-
-
-
-
-
-
-
-
 * Refactor code as needed.
 
 ## Methodology
@@ -346,8 +330,70 @@ This project was similar in structure and scope to the To Do List project. So, I
 * Download the database OR use MySQL to:
   - CREATE DATABASE andy_grossberg;
   - USE andy_grossberg;
-  - CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylist_id INT) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-  - CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - CREATE TABLE `clients` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `stylist_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - INSERT INTO `clients` (`id`, `name`, `stylist_id`) VALUES
+(9, 'Brenda', 3);
+  - CREATE TABLE `skills` (
+  `id` int(11) NOT NULL,
+  `stylist_id` int(11) NOT NULL,
+  `specialty_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - INSERT INTO `skills` (`id`, `stylist_id`, `specialty_id`) VALUES
+(34, 2, 1),
+(35, 3, 1),
+(36, 2, 2),
+(37, 2, 2),
+(38, 3, 3);
+  - CREATE TABLE `specialties` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - INSERT INTO `specialties` (`id`, `name`) VALUES
+(2, 'Pedicure'),
+(3, 'Manicure');
+  - CREATE TABLE `stylists` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  - INSERT INTO `stylists` (`id`, `name`) VALUES
+(2, 'Randi'),
+(3, 'Candi'),
+(4, 'Jami');
+  - CREATE TABLE `treatments` (
+  `id` int(11) NOT NULL,
+  `specialty_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+- ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+- ALTER TABLE `skills`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+- ALTER TABLE `specialties`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+- ALTER TABLE `stylists`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+- ALTER TABLE `treatments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+- ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+- ALTER TABLE `skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+- ALTER TABLE `specialties`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+- ALTER TABLE `stylists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+- ALTER TABLE `treatments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 * THEN Follow these same instructions to create the test database andy_grossberg_Test
   - Inside HairSalon.Tests, run the command 'dotnet test' from the command line
   - Inside HairSalon, run the command 'dotnet restore' to download the necessary packages.

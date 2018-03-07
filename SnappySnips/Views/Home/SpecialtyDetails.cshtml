@@ -11,7 +11,7 @@
 
   <div class = "well row">
     <!-- <h4><a href="/specialties/@Model.GetId()/new/stylist">ADD SPECIALTY</a> | <a href="/clients/@Model.GetId()/new">ADD CLIENT</a> | <a href="/deleteAllClients/@Model.GetId()">DELETE ALL CLIENTS</a> | <a href="/">BACK</a></h4> -->
-    <h4><a href="/specialties/viewAll">BACK</a></h4>
+    <h4><a href="/specialties/viewAll">BACK</a> | <a href="/stylist/@Model.GetId()/new/specialty">ADD STYLIST</a></h4>
   </div>
 
   <div class="well">
@@ -20,7 +20,7 @@
         <h3>STYLISTS WITH SPECIALTY</h3>
       </div>
       <div class="col-lg-4">
-        <h3>ACTION</h3>
+        <h3></h3>
       </div>
     </div>
 
@@ -31,10 +31,9 @@
           @foreach (var specialty in @Model.GetStylistsWithSpecialty())
           {
               <div class="col-lg-6">
-                <h4><a href="/specialties/@Model.GetId()/SpecialtyDetails">@specialty.GetName()</a></h4>
+                <h4>@specialty.GetName()</h4>
               </div>
-              <div class="col-lg-4">  
-                <h4><a href="/specialties/@Model.GetId()/view">VIEW</a> | <a href="/specialties/@Model.GetId()/update">EDIT</a> | <a href="/specialties/@Model.GetId()/delete">DELETE</a></h4>
+              <div class="col-lg-4">
               </div>
           }
       }
@@ -51,20 +50,20 @@
         <h3>CLIENTS WITH SPECIALTY</h3>
       </div>
       <div class="col-lg-4">
-        <h3>ACTION</h3>
+        <h3></h3>
       </div>
     </div>
 
     <div class="row">
       @if(@Model.GetClientsWithSpecialty().Count > 0)
       {
-          @foreach (var client in @Model.GetClients())
+          @foreach (var client in @Model.GetClientsWithSpecialty())
           {
             <div class="col-lg-6">
-              <h4><a href="/clients/@client.GetId()/ClientDetails">@client.GetName()</a></h4>
+              <h4>@client.GetName()</h4>
             </div>
             <div class="col-lg-4">
-              <h4><a href="/clients/@client.GetId()/update">EDIT</a> | <a href="/clients/@client.GetId()/delete">DELETE</a></h4>
+
             </div>
           }
       }

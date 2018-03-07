@@ -241,10 +241,7 @@ namespace HairSalon.Models
         }
 
 
-
-        //*********************************************************************************
         public static List<Specialty> GetAllSpecialties()
-        // this saves me from a lot of dictionary declarations in HomeController
         {
             List<Specialty> allSpecialties = new List<Specialty> {};
             MySqlConnection conn = DB.Connection();
@@ -383,6 +380,31 @@ namespace HairSalon.Models
             {
                 conn.Dispose();
             }
+        }
+
+        public void DeleteAllSpecialtiesFromClient(int id)
+        {
+          MySqlConnection conn = DB.Connection();
+          conn.Open();
+          var cmd = conn.CreateCommand() as MySqlCommand;
+          MySqlParameter thisId = new MySqlParameter();
+          thisId.ParameterName = "@thisId";
+          // thisId.Value = _id;
+          thisId.Value = id;
+
+          Console.WriteLine("In Dele All Spec in Client, client id is " + _id);
+
+          // cmd.CommandText = @"DELETE FROM treatments WHERE client_id = @thisId;";
+          // cmd.CommandText = @"DELETE FROM treatments WHERE client_id = _id;";
+
+          cmd.CommandText = @"DELETE FROM treatments;";
+
+          cmd.ExecuteNonQuery();
+          conn.Close();
+          if (conn != null)
+          {
+              conn.Dispose();
+          }
         }
 
         public static void DeleteAll()

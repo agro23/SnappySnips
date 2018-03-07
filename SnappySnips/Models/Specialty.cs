@@ -146,6 +146,7 @@ namespace HairSalon.Models
         // Console.WriteLine("This should return results from a JOIN table."); // *****
         // return allClientsWithSpecialty;
 
+
         MySqlConnection conn = DB.Connection();
         conn.Open();
         var cmd = conn.CreateCommand() as MySqlCommand;
@@ -162,6 +163,8 @@ namespace HairSalon.Models
 
         MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
         List<Client> allClientsWithSpecialty = new List<Client>{};
+
+        Console.WriteLine("In get client with specialty, specialtyId is: " + specialtyId);
 
         int client_Id = 0;
         string clientName = "";
@@ -205,37 +208,37 @@ namespace HairSalon.Models
 
     public List<Client> GetClients()
     {
-      List<Client> allSpecialtyClients = new List<Client> {};
-      return allSpecialtyClients;
-    }
-    //   List<Client> allSpecialtyClients = new List<Client> {};
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   var cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"SELECT * FROM clients WHERE specialty_id = @specialty_id;";
-    //
-    //   MySqlParameter specialtyId = new MySqlParameter();
-    //   specialtyId.ParameterName = "@specialty_id";
-    //   specialtyId.Value = this._id;
-    //   cmd.Parameters.Add(specialtyId);
-    //
-    //
-    //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
-    //   while(rdr.Read())
-    //   {
-    //     int clientId = rdr.GetInt32(0);
-    //     string clientName = rdr.GetString(1);
-    //     int clientSpecialtyId = rdr.GetInt32(2);
-    //     Client newClient = new Client(clientName, clientSpecialtyId, clientId);
-    //     allSpecialtyClients.Add(newClient);
-    //   }
-    //   conn.Close();
-    //   if (conn != null)
-    //   {
-    //       conn.Dispose();
-    //   }
-    //     return allSpecialtyClients;
+      // List<Client> allSpecialtyClients = new List<Client> {};
+      // return allSpecialtyClients;
     // }
+      List<Client> allSpecialtyClients = new List<Client> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM clients WHERE specialty_id = @specialty_id;";
+
+      MySqlParameter specialtyId = new MySqlParameter();
+      specialtyId.ParameterName = "@specialty_id";
+      specialtyId.Value = this._id;
+      cmd.Parameters.Add(specialtyId);
+
+
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int clientId = rdr.GetInt32(0);
+        string clientName = rdr.GetString(1);
+        int clientSpecialtyId = rdr.GetInt32(2);
+        Client newClient = new Client(clientName, clientSpecialtyId, clientId);
+        allSpecialtyClients.Add(newClient);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+          conn.Dispose();
+      }
+        return allSpecialtyClients;
+    }
 
     public static void DeleteAll()
     {
@@ -243,7 +246,7 @@ namespace HairSalon.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"DELETE FROM specialties; DELETE FROM skills; ALTER TABLE specialties AUTO_INCREMENT = 1;"; // should autincrement reset to 0 or 1?
+        cmd.CommandText = @"DELETE FROM specialties; DELETE FROM skills; ALTER TABLE specialties AUTO_INCREMENT = 1; DELETE FROM treatments; ALTER TABLE treatments AUTO_INCREMENT = 1"; // should autincrement reset to 0 or 1?
         try
         {
           cmd.ExecuteNonQuery();
@@ -345,6 +348,25 @@ namespace HairSalon.Models
         {
             conn.Dispose();
         }
+    }
+
+    public static void DeleteSpecialtyFromClient (int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      // cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId;";
+      cmd.CommandText = @"DELETE FROM treatments WHERE id = @clientId;";
+      MySqlParameter clientId = new MySqlParameter();
+      clientId.ParameterName = "@clientId";
+      clientId.Value = id;
+      cmd.Parameters.Add(clientId);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+          conn.Dispose();
+      }
     }
 
     public static void Delete (int Id)

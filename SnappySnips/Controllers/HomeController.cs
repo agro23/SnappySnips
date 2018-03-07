@@ -134,6 +134,7 @@ namespace HairSalon.Controllers
         [HttpGet("/clients/{clientId}/delete")]
         public ActionResult DeleteClient(int clientId)
         {
+
             int stylistId = Client.Find(clientId).GetStylistId();
             Client.Delete(clientId);
             return View("Details", Stylist.Find(stylistId));
@@ -163,7 +164,29 @@ namespace HairSalon.Controllers
             model.Add(tempClient);
             model.Add(tempSpecialty);
             return View("TreatmentsIndex", model);
-            // *****
+        }
+
+        [HttpGet("/clients/{id}/deleteAllSpecialties")]
+        public ActionResult DeleteAllTreatments(int id)
+        {
+            Client tempClient = Client.Find(id);
+            Console.WriteLine("In HomeC, Dele All treatments client is: " + tempClient.GetName());
+            tempClient.DeleteAllSpecialtiesFromClient(id);
+            return View("ClientDetails", tempClient);
+        }
+
+        [HttpGet("/clients/{id}/deleteTreatmentFromClient")]
+        public ActionResult DeleteClientTreatment(int id)
+        {
+            Client tempClient = Client.Find(id);
+            Specialty.DeleteSpecialtyFromClient(id);
+            return View("ClientDetails", tempClient);
+        }
+
+        [HttpGet("/clients/viewAll")]
+        public ActionResult ClientsIndex()
+        {
+            return View(Client.GetAll());
         }
 
         [HttpGet("/specialties/new")]
@@ -211,7 +234,6 @@ namespace HairSalon.Controllers
         [HttpGet("/specialties/{id}/view")]
         public ActionResult StylistDetails(int id)
         {
-            //get stylist id from this id... *******************************************************
             return View("Details", Stylist.Find(id));
         }
 
@@ -233,7 +255,6 @@ namespace HairSalon.Controllers
         [HttpGet("/specialties/{id}/details")]
         public ActionResult SpecialtyDetails(int id)
         {
-            // return View("Specialty", Specialty.Find(id));
             return View(Specialty.Find(id));
         }
 
@@ -243,6 +264,9 @@ namespace HairSalon.Controllers
             Specialty.Delete(id);
             return View("SpecialtiesIndex", Specialty.GetAll());
         }
+
+
+
 
         [HttpGet("/specialties/deleteAll")]
         public ActionResult SpecialtyDetails()
@@ -275,6 +299,47 @@ namespace HairSalon.Controllers
             tempStylist.AddSpecialtyToStylist(Specialty.Find(specialtyId));
             return View ("Details", tempStylist);
         }
+
+
+
+
+
+
+
+
+
+
+        //***************************
+
+        [HttpGet("/stylist/{id}/new/specialty")]
+        public ActionResult AddStylistToSpecialty(int id)
+        {
+            List<object> model = new List<object>{};
+            List<Specialty> tempSpecialty = new List<Specialty>{};
+            tempSpecialty.Add(Specialty.Find(id));
+            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
+            model.Add(tempSpecialty); // was id
+            List<Stylist> stylists = new List<Stylist>{};
+            stylists = Stylist.GetAll();
+            model.Add(stylists);
+            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
+            return View("UpdateSpecialtyStylist", model);
+        }
+
+        [HttpGet("/stylists/{specialtyId}/{stylistId}/addtome")]
+        public ActionResult AddToSpecialty(int specialtyId, int stylistId)
+        {
+            // add specialty x and stylist x1 to skills via JOIN
+            //How do I know what stylist it is????
+            Stylist tempStylist = Stylist.Find(stylistId);
+            tempStylist.AddStylistToSpecialty(Specialty.Find(specialtyId), stylistId);
+            return View ("Details", tempStylist);
+        }
+
+
+
+
+
 
         // [HttpGet("/specialties/{stylistId}/new/stylist")]
         // public ActionResult CreateStylistSpecialtyForm(int stylistId)
