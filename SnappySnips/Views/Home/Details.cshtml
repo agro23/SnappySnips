@@ -8,32 +8,27 @@
   <div class="well row">
     <h2>Stylist: <strong>@Model.GetName()</strong></h2>
   </div>
-
   <div class = "well row">
     <h4><a href="/specialties/@Model.GetId()/new/stylist">ADD SPECIALTY</a> | <a href="/clients/@Model.GetId()/new">ADD CLIENT</a> | <a href="/deleteAllClients/@Model.GetId()">DELETE ALL CLIENTS</a> | <a href="/">BACK</a></h4>
   </div>
-
   <div class="well">
     <div class="row">
       <div class="col-lg-6">
         <h3>SPECIALTY</h3>
       </div>
       <div class="col-lg-4">
-        <!-- <h3>ACTION</h3> -->
       </div>
     </div>
 
     <div class="row">
       @if(@Model.GetSpecialties().Count > 0)
       {
-        /* Console.WriteLine("There are " + @Model.GetSpecialties().Count + " specialties according to Stylist.GetSpecialties()."); */
           @foreach (var specialty in @Model.GetSpecialties())
           {
             <div class="col-lg-6">
               <h4>@specialty.GetName()</h4>
             </div>
             <div class="col-lg-4">
-            
             </div>
           }
       }
@@ -43,7 +38,6 @@
       }
     </div>
   </div>
-
   <div class="well">
     <div class="row">
       <div class="col-lg-6">
@@ -53,7 +47,6 @@
         <h3>ACTION</h3>
       </div>
     </div>
-
     <div class="row">
       @if(@Model.GetClients().Count > 0)
       {

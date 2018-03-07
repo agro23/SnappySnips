@@ -89,30 +89,6 @@ namespace HairSalon.Models.Tests
            Assert.AreEqual(testId, result);
         }
 
-
-        // [TestMethod] // test this once Client object is tested!
-        // public void GetClients_RetrievesAllClientssWithSpecialty_ClientList()
-        // // *******************************************************************
-        // // // THIS WILL USE THE JOIN TABLE
-        // // // ****************************************************************
-        // {
-        //     //Arrange
-        //     Specialty testSpecialty = new Specialty("Boba Fett");
-        //     testSpecialty.Save();
-        //
-        //     //Act
-        //     Client firstClient = new Client("Frozen Han", testSpecialty.GetId());
-        //     firstClient.Save();
-        //     Client secondClient = new Client("Leia's Grenade", testSpecialty.GetId());
-        //     secondClient.Save();
-        //     // Add to the clients table some new clients
-        //     List<Client> testClientList = new List<Client> {firstClient, secondClient};
-        //     List<Client> resultClientList = testSpecialty.GetClients();
-        //
-        //     //Assert
-        //     CollectionAssert.AreEqual(testClientList, resultClientList);
-        // }
-
         [TestMethod]
         public void Find_FindsItemInDatabase_Item()
         {
@@ -308,17 +284,6 @@ namespace HairSalon.Models.Tests
           //Assert
           Assert.AreEqual(manicurists.Count, whichStylists.Count);
         }
-
-
-
-        // [TestMethod]
-        // public void Add_SpecialtyToClientInTreatments_Void()
-        // {
-        //     //Arrange
-        //     //Act
-        //     //Assert
-        //     Assert.AreEqual(1,1);
-        // }
 
     }
 }

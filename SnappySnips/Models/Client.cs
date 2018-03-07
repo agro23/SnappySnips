@@ -88,6 +88,7 @@ namespace HairSalon.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * FROM clients;";
+
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
@@ -97,67 +98,31 @@ namespace HairSalon.Models
                 Client newClient = new Client(clientName, clientStylistId, clientId);
                 allClients.Add(newClient);
             }
+
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
+
             return allClients;
         }
 
-        // *********************************************************************************
         public List<Stylist> GetStylists()
         {
+            // perhaps unnecessary.
             List<Stylist> allClientStylists = new List<Stylist>{};
             allClientStylists.Add(Stylist.Find(this.GetStylistId()));
-          // FOR NOW IT'S JUST A CALL TO GetStylist and put in a list for consistantcy
-          //   // List<Stylist> allStylists = new List<Stylist> {};
-          //   // return allStylists;
-          //   //
-          //
-          // List<Stylist> allClientStylists = new List<Stylist> {};
-          // MySqlConnection conn = DB.Connection();
-          // conn.Open();
-          // var cmd = conn.CreateCommand() as MySqlCommand;
-          //
-          // cmd.CommandText = @"SELECT * FROM clients WHERE stylist_id = @Stylist_id;";
-          // MySqlParameter stylistId = new MySqlParameter();
-          // stylistId.ParameterName = "@Stylist_id";
-          // stylistId.Value = this._id;
-          // cmd.Parameters.Add(stylistId);
-          //
-          //
-          // var rdr = cmd.ExecuteReader() as MySqlDataReader;
-          // while(rdr.Read())
-          // {
-          //   int clientId = rdr.GetInt32(0);
-          //   string clientName = rdr.GetString(1);
-          //   int clientStylistId = rdr.GetInt32(2);
-          //   Stylist newStylist = new Stylist(Stylist.Find(clientStylistId).GetName());
-          //   Console.WriteLine("Stylist = " + Stylist.Find(clientStylistId).GetName());
-          //   allClientStylists.Add(newStylist);
-          // }
-          // conn.Close();
-          // if (conn != null)
-          // {
-          //     conn.Dispose();
-          // }
-
             return allClientStylists;
         }
-        // *********************************************************************************
 
         public void ChangeStylist(int stylist)
         {
-
             _stylistId = stylist;
-
             List<Client> allStylistClients = new List<Client> {};
-
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            // cmd.CommandText = @"UPDATE clients SET (stylist_id) VALUES (@stylist_id) WHERE id  = @client_id;";
             cmd.CommandText = @"UPDATE clients SET stylist_id = @stylist_id WHERE id  = @client_id;";
 
             MySqlParameter stylistId = new MySqlParameter();
@@ -169,7 +134,6 @@ namespace HairSalon.Models
             clientId.ParameterName = "@client_id";
             clientId.Value = this._id;
             cmd.Parameters.Add(clientId);
-
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -177,15 +141,10 @@ namespace HairSalon.Models
             {
                 conn.Dispose();
             }
-
         }
-        // *********************************************************************************
 
         public List<Specialty> GetSpecialties()
         {
-            // List<Specialty> allStylistSpecialties = new List<Specialty> {};
-            // return allStylistSpecialties; // Return an empty list for now
-
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
@@ -211,7 +170,6 @@ namespace HairSalon.Models
                 try
                 {
                     specialty_Id = rdr.GetInt32(0);
-                    Console.WriteLine("specialty_Id: " + specialty_Id);
                 }
                 catch (Exception ex)
                 {
@@ -220,7 +178,6 @@ namespace HairSalon.Models
                 try
                 {
                     specialtyName = rdr.GetString(1);
-                    Console.WriteLine("specialtyName: " + specialtyName);
                 }
                 catch (Exception ex)
                 {
@@ -228,7 +185,6 @@ namespace HairSalon.Models
                 }
                 Specialty newSpecialty = new Specialty(specialtyName);
                 allClientSpecialties.Add(newSpecialty);
-                Console.WriteLine("In rdr new specialty is: " + newSpecialty.GetName());
             }
 
             conn.Close();
@@ -246,8 +202,10 @@ namespace HairSalon.Models
             List<Specialty> allSpecialties = new List<Specialty> {};
             MySqlConnection conn = DB.Connection();
             conn.Open();
+
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * FROM specialties;";
+
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
@@ -256,14 +214,15 @@ namespace HairSalon.Models
               Specialty newSpecialty = new Specialty(specialtyName, specialtyId);
               allSpecialties.Add(newSpecialty);
             }
+
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
+
             return allSpecialties;
         }
-        //*********************************************************************************
 
         public void AddSpecialtyToClient(Specialty newSpecialty)
         {
@@ -271,9 +230,6 @@ namespace HairSalon.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO treatments (client_id, specialty_id) VALUES (@ClientId, @SpecialtyId);";
-
-            Console.WriteLine("Specialty is: " + newSpecialty.GetId() + " or " + Specialty.Find(newSpecialty.GetId()).GetName());
-            Console.WriteLine("Client is: " + _id + " or " + Client.Find(_id).GetName());
 
             MySqlParameter clients = new MySqlParameter();
             clients.ParameterName = "@ClientId";
@@ -284,9 +240,7 @@ namespace HairSalon.Models
             specialties.ParameterName = "@SpecialtyId";
             specialties.Value = newSpecialty.GetId();
 
-            // specialties.Value = 1;
             cmd.Parameters.Add(specialties);
-
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -329,7 +283,6 @@ namespace HairSalon.Models
         }
 
         public void Update(string newName, int stylistsId, int myId)
-        // Client.Update() must also take a stylistId even if it stays the same
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -384,27 +337,20 @@ namespace HairSalon.Models
 
         public void DeleteAllSpecialtiesFromClient(int id)
         {
-          MySqlConnection conn = DB.Connection();
-          conn.Open();
-          var cmd = conn.CreateCommand() as MySqlCommand;
-          MySqlParameter thisId = new MySqlParameter();
-          thisId.ParameterName = "@thisId";
-          // thisId.Value = _id;
-          thisId.Value = id;
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            MySqlParameter thisId = new MySqlParameter();
+            thisId.ParameterName = "@thisId";
+            thisId.Value = id;
 
-          Console.WriteLine("In Dele All Spec in Client, client id is " + _id);
-
-          // cmd.CommandText = @"DELETE FROM treatments WHERE client_id = @thisId;";
-          // cmd.CommandText = @"DELETE FROM treatments WHERE client_id = _id;";
-
-          cmd.CommandText = @"DELETE FROM treatments;";
-
-          cmd.ExecuteNonQuery();
-          conn.Close();
-          if (conn != null)
-          {
-              conn.Dispose();
-          }
+            cmd.CommandText = @"DELETE FROM treatments;";
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
 
         public static void DeleteAll()

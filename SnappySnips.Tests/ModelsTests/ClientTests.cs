@@ -166,7 +166,7 @@ namespace HairSalon.Models.Tests
             testList.Add(testClient);
 
             //Act
-            Client.Delete(3); // Why is Stylist ahead by one? Do I reindex somewhere?!
+            Client.Delete(3); 
             testList.RemoveAt(2);
 
             //Assert
@@ -189,7 +189,6 @@ namespace HairSalon.Models.Tests
             Assert.IsInstanceOfType(testClient.GetSpecialties(), typeof(List<Specialty>));
         }
 
-
         // [TestMethod]
         // public void ReturnsSpecialtiesListFrom_GetSpecialties_True()
         // {
@@ -209,8 +208,6 @@ namespace HairSalon.Models.Tests
         //     //Assert
         //     CollectionAssert.AreEqual(testSpecialtyList, testClient.GetSpecialties());
         // }
-
-
 
     } // end class
 

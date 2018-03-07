@@ -50,17 +50,9 @@ namespace HairSalon.Controllers
             return RedirectToAction("Index", thisStylist);
         }
 
-        // [HttpGet("/stylists/{id}/edit")]
-        // public ActionResult Delete(int id)
-        // {
-        //     Stylist.Edit(id);
-        //     return RedirectToAction("Index");
-        // }
-
         [HttpGet("/stylists/{id}/new")]
         public ActionResult ChangeClientStylist (int id)
         {
-            // Stylist.Edit(id);
             Client tempClient = Client.Find(id);
             Stylist tempStylist = Stylist.Find(tempClient.GetStylistId());
             List<Stylist> tempStylists = Stylist.GetAll();
@@ -69,15 +61,12 @@ namespace HairSalon.Controllers
             model.Add(tempStylist);
             model.Add(tempStylists);
             return View(model);
-            // return RedirectToAction("Index");
         }
 
         [HttpGet("/stylists/{clientId}/{stylistId}/addme")]
         public ActionResult ChangeStylist (int clientId, int stylistId)
         {
             Client tempClient = Client.Find(clientId);
-            // Console.WriteLine("Add finds Client: " + tempClient.GetName() + " and Stylist: " + Stylist.Find(tempClient.GetStylistId()).GetName());
-            // tempClient.SetStylistId(stylistId);
             tempClient.ChangeStylist(stylistId);
             Console.WriteLine("But changes to Stylist: " + Stylist.Find(stylistId));
             return View ("Index", Stylist.GetAll());
@@ -170,7 +159,6 @@ namespace HairSalon.Controllers
         public ActionResult DeleteAllTreatments(int id)
         {
             Client tempClient = Client.Find(id);
-            Console.WriteLine("In HomeC, Dele All treatments client is: " + tempClient.GetName());
             tempClient.DeleteAllSpecialtiesFromClient(id);
             return View("ClientDetails", tempClient);
         }
@@ -191,22 +179,17 @@ namespace HairSalon.Controllers
 
         [HttpGet("/specialties/new")]
         public ActionResult CreateSpecialtyForm()
-        // was CreateForm()
         {
             return View();
         }
 
         [HttpPost("/specialties")]
         public ActionResult CreateSpecialty()
-        //Was Create()
         {
-          Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
-          newSpecialty.Save();
-          List<Specialty> allSpecialties = Specialty.GetAll();
-          // return View("Index", allSpecialties);
-          // return View("Index"); // maybe send it to a list of all specialties
-          return RedirectToAction("SpecialtiesIndex", allSpecialties);
-
+            Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
+            newSpecialty.Save();
+            List<Specialty> allSpecialties = Specialty.GetAll();
+            return RedirectToAction("SpecialtiesIndex", allSpecialties);
         }
 
         [HttpGet("/specialties/{stylistId}/new")]
@@ -219,7 +202,6 @@ namespace HairSalon.Controllers
         public ActionResult CreateStylistSpecialty(int stylistId)
         {
             Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
-            Console.WriteLine("new Specialty is " + newSpecialty.GetName());
             newSpecialty.Save();
             return View("Details", Stylist.Find(stylistId));
         }
@@ -265,9 +247,6 @@ namespace HairSalon.Controllers
             return View("SpecialtiesIndex", Specialty.GetAll());
         }
 
-
-
-
         [HttpGet("/specialties/deleteAll")]
         public ActionResult SpecialtyDetails()
         {
@@ -281,35 +260,20 @@ namespace HairSalon.Controllers
             List<object> model = new List<object>{};
             List<Stylist> tempStylist = new List<Stylist>{};
             tempStylist.Add(Stylist.Find(id));
-            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
             model.Add(tempStylist); // was id
             List<Specialty> specialties = new List<Specialty>{};
             specialties = Specialty.GetAll();
             model.Add(specialties);
-            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
             return View("UpdateStylistSpecialty", model);
         }
 
         [HttpGet("/stylists/{specialtyId}/{stylistId}/add")]
         public ActionResult AddToStylist(int specialtyId, int stylistId)
         {
-            // add specialty x and stylist x1 to skills via JOIN
-            //How do I know what stylist it is????
             Stylist tempStylist = Stylist.Find(stylistId);
             tempStylist.AddSpecialtyToStylist(Specialty.Find(specialtyId));
             return View ("Details", tempStylist);
         }
-
-
-
-
-
-
-
-
-
-
-        //***************************
 
         [HttpGet("/stylist/{id}/new/specialty")]
         public ActionResult AddStylistToSpecialty(int id)
@@ -317,71 +281,41 @@ namespace HairSalon.Controllers
             List<object> model = new List<object>{};
             List<Specialty> tempSpecialty = new List<Specialty>{};
             tempSpecialty.Add(Specialty.Find(id));
-            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
             model.Add(tempSpecialty); // was id
             List<Stylist> stylists = new List<Stylist>{};
             stylists = Stylist.GetAll();
             model.Add(stylists);
-            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
             return View("UpdateSpecialtyStylist", model);
         }
 
         [HttpGet("/stylists/{specialtyId}/{stylistId}/addtome")]
         public ActionResult AddToSpecialty(int specialtyId, int stylistId)
         {
-            // add specialty x and stylist x1 to skills via JOIN
-            //How do I know what stylist it is????
             Stylist tempStylist = Stylist.Find(stylistId);
             tempStylist.AddStylistToSpecialty(Specialty.Find(specialtyId), stylistId);
             return View ("Details", tempStylist);
         }
 
-
-
-
-
-
-        // [HttpGet("/specialties/{stylistId}/new/stylist")]
-        // public ActionResult CreateStylistSpecialtyForm(int stylistId)
-        // {
-        //     return View(Stylist.Find(stylistId));
-        // }
-        //
-        // [HttpPost("/specialties/{stylistId}/stylist")]
-        // public ActionResult CreateStylistSpecialty(int stylistId)
-        // {
-        //     Specialty newSpecialty = new Specialty (Request.Form["new-specialty"]);
-        //     Console.WriteLine("new Specialty is " + newSpecialty.GetName());
-        //     newSpecialty.Save();
-        //     return View("Details", Stylist.Find(stylistId));
-        // }
-
         [HttpGet("/specialties/{id}/new/client")]
-        // should this be 'treatments' instead of 'specialties'?
         public ActionResult AddSpecialtyToClient(int id)
         {
             List<object> model = new List<object>{};
             List<Client> tempClient = new List<Client>{};
             tempClient.Add(Client.Find(id));
-            // Console.WriteLine("The Stylist is: " + tempStylist[0].GetName() + " and the id is: " + id);
             model.Add(tempClient); // was id
             List<Specialty> specialties = new List<Specialty>{};
             specialties = Specialty.GetAll();
             model.Add(specialties);
-            // Console.WriteLine("Model[0] is: " + model[0] + " and the id is still: " + id);
             return View("UpdateClientTreatment", model);
         }
 
         [HttpGet("/treatments/{clientId}/{specialtyId}/addit")]
         public ActionResult AddToClient(int specialtyId, int clientId)
         {
-            // add specialty x and stylist x1 to skills via JOIN
-            //How do I know what stylist it is????
             Client tempClient = Client.Find(clientId);
             tempClient.AddSpecialtyToClient(Specialty.Find(specialtyId));
             return View ("ClientDetails", tempClient);
         }
-
-
+        
     }
 }
