@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 03:18 PM
+-- Generation Time: Mar 07, 2018 at 07:36 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -39,8 +39,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `stylist_id`) VALUES
-(2, 'Derf', 1),
-(3, 'Fred', 2);
+(9, 'Brenda', 3);
 
 -- --------------------------------------------------------
 
@@ -59,11 +58,11 @@ CREATE TABLE `skills` (
 --
 
 INSERT INTO `skills` (`id`, `stylist_id`, `specialty_id`) VALUES
-(19, 1, 1),
-(20, 2, 1),
-(21, 2, 1),
-(22, 1, 2),
-(23, 2, 2);
+(34, 2, 1),
+(35, 3, 1),
+(36, 2, 2),
+(37, 2, 2),
+(38, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -81,7 +80,8 @@ CREATE TABLE `specialties` (
 --
 
 INSERT INTO `specialties` (`id`, `name`) VALUES
-(2, 'Taste Buds');
+(2, 'Pedicure'),
+(3, 'Manicure');
 
 -- --------------------------------------------------------
 
@@ -99,8 +99,9 @@ CREATE TABLE `stylists` (
 --
 
 INSERT INTO `stylists` (`id`, `name`) VALUES
-(1, 'Rhonda'),
-(2, 'Ruby');
+(2, 'Randi'),
+(3, 'Candi'),
+(4, 'Jami');
 
 -- --------------------------------------------------------
 
@@ -161,27 +162,27 @@ ALTER TABLE `treatments`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `specialties`
 --
 ALTER TABLE `specialties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `stylists`
 --
 ALTER TABLE `stylists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `treatments`
 --
 ALTER TABLE `treatments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
